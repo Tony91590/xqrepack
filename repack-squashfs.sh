@@ -9,6 +9,7 @@
 set -e
 
 IMG=$1
+MODEL=$2
 ROOTPW='$1$qtLLI4cm$c0v3yxzYPI46s28rbAYG//'  # "password"
 
 [ -e "$IMG" ] || { echo "rootfs img not found $IMG"; exit 1; }
@@ -33,18 +34,16 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 mkdir "$FSDIR/opt"
 chmod 755 "$FSDIR/opt"
 
-# Replace Files
-cp -rf root/* "$FSDIR"
-
 # modify dropbear init
 sed -i 's/channel=.*/channel=release2/' "$FSDIR/etc/init.d/dropbear"
 sed -i 's/flg_ssh=.*/flg_ssh=1/' "$FSDIR/etc/init.d/dropbear"
 
 # mark web footer so that users can confirm the right version has been flashed
-sed -i 's/romVersion%>/& xqrepack-adriano/;' "$FSDIR/usr/lib/lua/luci/view/web/inc/footer.htm"
+sed -i 's/romVersion%>/& xqrepack/;' "$FSDIR/usr/lib/lua/luci/view/web/inc/footer.htm"
 
 # stop resetting root password
 sed -i '/set_user(/a return 0' "$FSDIR/etc/init.d/system"
+sed -i 's/flg_init_pwd=.*/flg_init_pwd=0/' "$FSDIR/etc/init.d/boot_check"
 
 # make sure our backdoors are always enabled by default
 sed -i '/ssh_en/d;' "$FSDIR/usr/share/xiaoqiang/xiaoqiang-reserved.txt"
@@ -52,6 +51,7 @@ sed -i '/ssh_en=/d; /uart_en=/d; /boot_wait=/d;' "$FSDIR/usr/share/xiaoqiang/xia
 cat <<XQDEF >> "$FSDIR/usr/share/xiaoqiang/xiaoqiang-defaults.txt"
 uart_en=1
 ssh_en=1
+telnet_en=0
 boot_wait=on
 XQDEF
 
@@ -61,6 +61,7 @@ grep -q -w enable_dev_access "$FSDIR/lib/preinit/31_restore_nvram" || \
 enable_dev_access() {
 	nvram set uart_en=1
 	nvram set ssh_en=1
+    nvram set telnet_en=0
 	nvram set boot_wait=on
 	nvram commit
 }
@@ -93,7 +94,9 @@ done
 # prevent stats phone home & auto-update
 for f in StatPoints mtd_crash_log logupload.lua otapredownload; do > $FSDIR/usr/sbin/$f; done
 
-sed -i '/start_service(/a return 0' $FSDIR/etc/init.d/messagingagent.sh
+for f in wan_check messagingagent.sh; do
+	sed -i '/start_service(/a return 0' $FSDIR/etc/init.d/$f
+done
 
 # cron jobs are mostly non-OpenWRT stuff
 for f in $FSDIR/etc/crontabs/*; do
@@ -104,7 +107,8 @@ done
 sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
 
 # apply patch from xqrepack repository
-find patches -type f -exec bash -c "(cd "$FSDIR" && git apply -p1) < {}" \;
+find patches -type f -name \*$MODEL\* -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
+find patches -type f -name \*.orig -delete
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"

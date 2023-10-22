@@ -38,4 +38,3 @@ nvram set flag_ota_reboot=1
 nvram commit
 
 echo "Done. You may reboot now."
-
