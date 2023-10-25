@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 #
 # unpack, modify and re-pack the Xiaomi R3600 firmware
 # removes checks for release channel before starting dropbear
@@ -9,7 +9,6 @@
 set -e
 
 IMG=$1
-MODEL=$2
 ROOTPW='$1$qtLLI4cm$c0v3yxzYPI46s28rbAYG//'  # "password"
 
 [ -e "$IMG" ] || { echo "rootfs img not found $IMG"; exit 1; }
@@ -30,10 +29,6 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 >&2 echo "patching squashfs..."
 
-# create /opt dir
-mkdir "$FSDIR/opt"
-chmod 755 "$FSDIR/opt"
-
 # modify dropbear init
 sed -i 's/channel=.*/channel=release2/' "$FSDIR/etc/init.d/dropbear"
 sed -i 's/flg_ssh=.*/flg_ssh=1/' "$FSDIR/etc/init.d/dropbear"
@@ -51,7 +46,6 @@ sed -i '/ssh_en=/d; /uart_en=/d; /boot_wait=/d;' "$FSDIR/usr/share/xiaoqiang/xia
 cat <<XQDEF >> "$FSDIR/usr/share/xiaoqiang/xiaoqiang-defaults.txt"
 uart_en=1
 ssh_en=1
-telnet_en=0
 boot_wait=on
 XQDEF
 
@@ -61,7 +55,6 @@ grep -q -w enable_dev_access "$FSDIR/lib/preinit/31_restore_nvram" || \
 enable_dev_access() {
 	nvram set uart_en=1
 	nvram set ssh_en=1
-    nvram set telnet_en=0
 	nvram set boot_wait=on
 	nvram commit
 }
@@ -85,14 +78,15 @@ chown root:root "$FSDIR/sbin/xqflash"
 # dont start crap services
 for SVC in stat_points statisticsservice \
 		datacenter \
-		xq_info_sync_mqtt \
-		xiaoqiang_sync \
+		smartcontroller \
 		plugincenter plugin_start_script.sh cp_preinstall_plugins.sh; do
 	rm -f $FSDIR/etc/rc.d/[SK]*$SVC
 done
 
 # prevent stats phone home & auto-update
-for f in StatPoints mtd_crash_log logupload.lua otapredownload; do > $FSDIR/usr/sbin/$f; done
+for f in StatPoints mtd_crash_log logupload.lua otapredownload wanip_check.sh; do > $FSDIR/usr/sbin/$f; done
+
+rm -f $FSDIR/etc/hotplug.d/iface/*wanip_check
 
 for f in wan_check messagingagent.sh; do
 	sed -i '/start_service(/a return 0' $FSDIR/etc/init.d/$f
@@ -106,9 +100,24 @@ done
 # as a last-ditch effort, change the *.miwifi.com hostnames to localhost
 sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
 
-# apply patch from xqrepack repository
-find patches -type f -name \*$MODEL\* -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
-find patches -type f -name \*.orig -delete
+# get hardware name
+HWNAME=`sed -n "/option\s\+HARDWARE/ s/.*'\(.*\)'/\1/g p" $FSDIR/usr/share/xiaoqiang/xiaoqiang_version`
+[ -n "$HWNAME" ] && echo "detected hw $HWNAME" || echo "[WARN] cant find hw name in firmware"
+
+# apply hw-specific patches
+PATCHES=
+[ -n "$HWNAME" ] && [ -d "patches-$HWNAME" ] && PATCHES=patches-$HWNAME/*.patch
+
+# generic patches
+[ -d patches ] && PATCHES="$PATCHES patches/*.patch"
+
+# apply patches
+for p in $PATCHES; do
+	>&2 echo "applying patch $p..."
+	patch -d "$FSDIR" -s -p1 < $p
+
+	[ $? -ne 0 ] && { echo "patch $p didnt apply cleanly - aborting."; exit 1; }
+done
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
