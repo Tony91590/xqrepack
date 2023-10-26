@@ -1,4 +1,5 @@
-etc/config/xqled
+--- a/etc/config/xqled
++++ b/etc/config/xqled
 @@ -38,12 +38,12 @@
  #             MAX -> MIN : 7 - 1, temp reserve
  config func 'sys_booting'
