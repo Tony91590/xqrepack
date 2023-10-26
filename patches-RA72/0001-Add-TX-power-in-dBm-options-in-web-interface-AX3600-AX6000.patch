@@ -40,16 +40,10 @@ diff --git a/usr/lib/lua/luci/view/web/apsetting/wifi.htm b/usr/lib/lua/luci/vie
 index 0923d88..c89199a 100755
 --- a/usr/lib/lua/luci/view/web/apsetting/wifi.htm
 +++ b/usr/lib/lua/luci/view/web/apsetting/wifi.htm
-@@ -210,6 +210,36 @@ local hardware = string.lower( XQSysUtil.getHardware() )
+@@ -210,6 +210,30 @@ local hardware = string.lower( XQSysUtil.getHardware() )
                  <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
                  <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
                  <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                <option value="dbm30"{if ($txpwr == "dbm30")} selected{/if}>30 dBm (1000 mW)</option>
-+                <option value="dbm29"{if ($txpwr == "dbm29")} selected{/if}>29 dBm (794 mW)</option>
-+                <option value="dbm28"{if ($txpwr == "dbm28")} selected{/if}>28 dBm (630 mW)</option>
-+                <option value="dbm27"{if ($txpwr == "dbm27")} selected{/if}>27 dBm (501 mW)</option>
-+                <option value="dbm26"{if ($txpwr == "dbm26")} selected{/if}>26 dBm (398 mW)</option>
-+                <option value="dbm25"{if ($txpwr == "dbm25")} selected{/if}>25 dBm (316 mW)</option>
 +                <option value="dbm24"{if ($txpwr == "dbm24")} selected{/if}>24 dBm (251 mW)</option>
 +                <option value="dbm23"{if ($txpwr == "dbm23")} selected{/if}>23 dBm (199 mW)</option>
 +                <option value="dbm22"{if ($txpwr == "dbm22")} selected{/if}>22 dBm (158 mW)</option>
@@ -77,16 +71,10 @@ index 0923d88..c89199a 100755
              </select>
          </span>
          <em class="t"></em>
-@@ -314,6 +344,36 @@ local hardware = string.lower( XQSysUtil.getHardware() )
+@@ -314,6 +344,30 @@ local hardware = string.lower( XQSysUtil.getHardware() )
                  <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
                  <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
                  <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                <option value="dbm30"{if ($txpwr == "dbm30")} selected{/if}>30 dBm (1000 mW)</option>
-+                <option value="dbm29"{if ($txpwr == "dbm29")} selected{/if}>29 dBm (794 mW)</option>
-+                <option value="dbm28"{if ($txpwr == "dbm28")} selected{/if}>28 dBm (630 mW)</option>
-+                <option value="dbm27"{if ($txpwr == "dbm27")} selected{/if}>27 dBm (501 mW)</option>
-+                <option value="dbm26"{if ($txpwr == "dbm26")} selected{/if}>26 dBm (398 mW)</option>
-+                <option value="dbm25"{if ($txpwr == "dbm25")} selected{/if}>25 dBm (316 mW)</option>
 +                <option value="dbm24"{if ($txpwr == "dbm24")} selected{/if}>24 dBm (251 mW)</option>
 +                <option value="dbm23"{if ($txpwr == "dbm23")} selected{/if}>23 dBm (199 mW)</option>
 +                <option value="dbm22"{if ($txpwr == "dbm22")} selected{/if}>22 dBm (158 mW)</option>
@@ -118,7 +106,7 @@ diff --git a/usr/lib/lua/luci/view/web/inc/wifi.html b/usr/lib/lua/luci/view/web
 index 9ced932..02bcdb0 100644
 --- a/usr/lib/lua/luci/view/web/inc/wifi.html
 +++ b/usr/lib/lua/luci/view/web/inc/wifi.html
-@@ -297,6 +297,36 @@ local hardware = string.lower( XQSysUtil.getHardware() )
+@@ -297,6 +297,30 @@ local hardware = string.lower( XQSysUtil.getHardware() )
                  <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
                  <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
                  <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
