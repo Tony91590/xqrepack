@@ -1,3 +1,5 @@
+--- a/lib/wifi/qcawificfg80211.sh
++++ b/lib/wifi/qcawificfg80211.sh
 @@ -4290,7 +4290,7 @@
  		if [ "$bdmode" = "24G" ]; then
  			max_power=$(uci -q get misc.wireless.if_2g_maxpower)
