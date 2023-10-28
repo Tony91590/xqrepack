@@ -69,10 +69,8 @@
 -	option APP app.miwifi.com
 -	option STUN us.stun.miwifi.com
 -	option BROKER us.broker.miwifi.com
-\ No newline at end of file
 +	option API localhost
 +	option S localhost
 +	option APP localhost
 +	option STUN localhost
 +	option BROKER localhost
-\ No newline at end of file
