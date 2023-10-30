@@ -1,0 +1,17 @@
+@@ -113,6 +113,7 @@
+
+         local base="${config%%.conf}"
+         local base_cfg=
++	local nv_country_code=`nvram get CountryCode`
+
+         json_get_vars country country_ie beacon_int doth
+
+@@ -122,7 +123,7 @@
+         set_default doth 1
+
+         [ -n "$country" ] && {
+-                append base_cfg "country_code=$country" "$N"
++                append base_cfg "country_code=$nv_country_code" "$N"
+
+                 [ "$country_ie" -gt 0 ] && append base_cfg "ieee80211d=1" "$N"
+                 [ "$hwmode" = "a" -a "$doth" -gt 0 ] && append base_cfg "ieee80211h=1" "$N"
