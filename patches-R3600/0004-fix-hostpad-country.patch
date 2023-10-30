@@ -1,5 +1,5 @@
---- a/lib/wifi/qcawificfg80211.sh
-+++ b/lib/wifi/qcawificfg80211.sh
+--- a/lib/wifi/hostapd.sh
++++ b/lib/wifi/hostapd.sh
 @@ -113,6 +113,7 @@
 
          local base="${config%%.conf}"
