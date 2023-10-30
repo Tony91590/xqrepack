@@ -4,7 +4,7 @@
 
          local base="${config%%.conf}"
          local base_cfg=
-+	local nv_country_code=`nvram get CountryCode`
++        local nv_country_code=`nvram get CountryCode`
 
          json_get_vars country country_ie beacon_int doth
 
