@@ -10,13 +10,13 @@ on:
 
 jobs:
   Delete-Old-Workflows:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-lastest
     steps:
     - name: Clone Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
+      uses: chika0801/delete-workflow-runs@main
       continue-on-error: true
       with:
         retain_days: 1
