@@ -10,7 +10,7 @@ on:
 
 jobs:
   Delete-Old-Workflows:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     steps:
     - name: Clone Repository
       uses: actions/checkout@v4
