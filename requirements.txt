@@ -1,2 +1,0 @@
-python-lzo
-ubi_reader
