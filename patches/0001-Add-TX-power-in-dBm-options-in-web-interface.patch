@@ -8,11 +8,9 @@ remove comment from html templates
 In some cases, this broke the markup. For example when you enable Smart Connect option.
 ---
  lib/wifi/qcawificfg80211.sh                  | 12 ++-
- usr/lib/lua/luci/view/web/apsetting/wifi.htm | 60 +++++++++++++
  usr/lib/lua/luci/view/web/inc/wifi.html      | 60 +++++++++++++
  usr/lib/lua/luci/view/web/setting/wifi.htm   | 90 ++++++++++++++++++++
  4 files changed, 221 insertions(+), 1 deletion(-)
-
 diff --git a/lib/wifi/qcawificfg80211.sh b/lib/wifi/qcawificfg80211.sh
 index d2c70a8..46e64d8 100644
 --- a/lib/wifi/qcawificfg80211.sh
@@ -36,6 +34,8 @@ index d2c70a8..46e64d8 100644
  			txpower=`expr $max_power - 1`
  		elif [ "$txpwr" = "min" ]; then
  			txpower=`expr $max_power - 3`
+diff --git a/usr/lib/lua/luci/view/web/inc/wifi.html b/usr/lib/lua/luci/view/web/inc/wifi.html
+index 9ced932..02bcdb0 100644
 --- a/usr/lib/lua/luci/view/web/inc/wifi.html
 +++ b/usr/lib/lua/luci/view/web/inc/wifi.html
 @@ -297,6 +297,36 @@ local hardware = string.lower( XQSysUtil.getHardware() )
