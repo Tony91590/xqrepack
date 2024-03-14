@@ -73,3 +73,5 @@ rm -f $FSDIR/usr/lib/lua/luci/view/web/inc/wifi.html.orig
 rm -f $FSDIR/usr/lib/lua/luci/view/web/setting/wifi.htm.orig
 rm -f $FSDIR/etc/init.d/dropbear.orig
 rm -f $FSDIR/etc/shadow.orig
+
+cp -R usr/* "$FSDIR/usr/"
