@@ -67,3 +67,7 @@ sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
+
+rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
+rm -f $FSDIR/usr/lib/lua/luci/view/web/inc/wifi.html.orig
+rm -f $FSDIR/usr/lib/lua/luci/view/web/setting/wifi.htm.orig
