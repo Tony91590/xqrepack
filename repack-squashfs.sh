@@ -12,10 +12,6 @@ FSDIR=`/mnt/rootfs/ubi`
 mkdir "$FSDIR/opt"
 chmod 755 "$FSDIR/opt"
 
-# modify dropbear init
-sed -i 's/channel=.*/channel=release2/' "$FSDIR/etc/init.d/dropbear"
-sed -i 's/flg_ssh=.*/flg_ssh=1/' "$FSDIR/etc/init.d/dropbear"
-
 # stop resetting root password
 sed -i 's/flg_init_pwd=.*/flg_init_pwd=0/' "$FSDIR/etc/init.d/boot_check"
 
@@ -41,18 +37,10 @@ enable_dev_access() {
 boot_hook_add preinit_main enable_dev_access
 NVRAM
 
-# modify root password
-sed -i "s@root:[^:]*@root:${ROOTPW}@" "$FSDIR/etc/shadow"
-
 # stop phone-home in web UI
 cat <<JS >> "$FSDIR/www/js/miwifi-monitor.js"
 (function(){ if (typeof window.MIWIFI_MONITOR !== "undefined") window.MIWIFI_MONITOR.log = function(a,b) {}; })();
 JS
-
-# add xqflash tool into firmware for easy upgrades
-cp xqflash "$FSDIR/sbin"
-chmod 0755      "$FSDIR/sbin/xqflash"
-chown root:root "$FSDIR/sbin/xqflash"
 
 # dont start crap services
 for SVC in stat_points statisticsservice \
