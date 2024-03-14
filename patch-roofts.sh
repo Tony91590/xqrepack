@@ -6,7 +6,8 @@
 # 2020.07.20  darell tan
 # 
 
-FSDIR=`/mnt/rootfs/ubi`
+
+FSDIR=/mnt/rootfs/ubi
 
 # create /opt dir
 mkdir "$FSDIR/opt"
