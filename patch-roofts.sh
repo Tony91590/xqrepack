@@ -6,7 +6,6 @@
 # 2020.07.20  darell tan
 # 
 
-
 FSDIR=/mnt/rootfs/ubi
 
 # create /opt dir
