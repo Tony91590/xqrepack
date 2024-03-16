@@ -3,10 +3,9 @@
 @@ -131,8 +131,7 @@ start_service()
  {
 	# 稳定版不能打开ssh服务
--	flg_ssh=`nvram get ssh_en`
+	flg_ssh=`nvram get ssh_en`
 -	channel=`/sbin/uci get /usr/share/xiaoqiang/xiaoqiang_version.version.CHANNEL`
 -	if [ "$flg_ssh" != "1" -o "$channel" = "release" ]; then
-+	flg_ssh=1
 +	if [ "$flg_ssh" != "1" ]; then
 		return 0
 	fi
