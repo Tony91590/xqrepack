@@ -65,9 +65,6 @@ enable_dev_access() {
 boot_hook_add preinit_main enable_dev_access
 NVRAM
 
-# modify root password
-sed -i "s@root:[^:]*@root:${ROOTPW}@" "$FSDIR/etc/shadow"
-
 # stop phone-home in web UI
 cat <<JS >> "$FSDIR/www/js/miwifi-monitor.js"
 (function(){ if (typeof window.MIWIFI_MONITOR !== "undefined") window.MIWIFI_MONITOR.log = function(a,b) {}; })();
@@ -103,6 +100,12 @@ sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
+
+rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
+rm -f $FSDIR/usr/lib/lua/luci/view/web/inc/wifi.html.orig
+rm -f $FSDIR/usr/lib/lua/luci/view/web/setting/wifi.htm.orig
+rm -f $FSDIR/etc/init.d/dropbear.orig
+rm -f $FSDIR/etc/shadow.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
