@@ -1,5 +1,5 @@
 From: Alexander Georgievskiy <galeksandrp@gmail.com>
-Subject:Add TX power in dBm options in web interface
+Subject: Add TX power in dBm options in web interface
 --- a/lib/wifi/qcawificfg80211.sh
 +++ b/lib/wifi/qcawificfg80211.sh
 @@ -2986,7 +2986,17 @@ enable_qcawificfg80211() {
