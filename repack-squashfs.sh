@@ -9,7 +9,6 @@
 set -e
 
 IMG=$1
-ROOTPW='$1$qtLLI4cm$c0v3yxzYPI46s28rbAYG//'  # "password"
 
 [ -e "$IMG" ] || { echo "rootfs img not found $IMG"; exit 1; }
 
@@ -33,37 +32,11 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 mkdir "$FSDIR/opt"
 chmod 755 "$FSDIR/opt"
 
-# modify dropbear init
-sed -i 's/channel=.*/channel=release2/' "$FSDIR/etc/init.d/dropbear"
-sed -i 's/flg_ssh=.*/flg_ssh=1/' "$FSDIR/etc/init.d/dropbear"
-
 # mark web footer so that users can confirm the right version has been flashed
 sed -i 's/romVersion%>/& xqrepack/;' "$FSDIR/usr/lib/lua/luci/view/web/inc/footer.htm"
 
 # stop resetting root password
 sed -i '/set_user(/a return 0' "$FSDIR/etc/init.d/system"
-
-# make sure our backdoors are always enabled by default
-sed -i '/ssh_en/d;' "$FSDIR/usr/share/xiaoqiang/xiaoqiang-reserved.txt"
-sed -i '/ssh_en=/d; /uart_en=/d; /boot_wait=/d;' "$FSDIR/usr/share/xiaoqiang/xiaoqiang-defaults.txt"
-cat <<XQDEF >> "$FSDIR/usr/share/xiaoqiang/xiaoqiang-defaults.txt"
-uart_en=1
-ssh_en=1
-boot_wait=on
-XQDEF
-
-# always reset our access nvram variables
-grep -q -w enable_dev_access "$FSDIR/lib/preinit/31_restore_nvram" || \
- cat <<NVRAM >> "$FSDIR/lib/preinit/31_restore_nvram"
-enable_dev_access() {
-	nvram set uart_en=1
-	nvram set ssh_en=1
-	nvram set boot_wait=on
-	nvram commit
-}
-
-boot_hook_add preinit_main enable_dev_access
-NVRAM
 
 # stop phone-home in web UI
 cat <<JS >> "$FSDIR/www/js/miwifi-monitor.js"
