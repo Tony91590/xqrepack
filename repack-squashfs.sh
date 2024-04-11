@@ -33,7 +33,7 @@ mkdir "$FSDIR/opt"
 chmod 755 "$FSDIR/opt"
 
 # mark web footer so that users can confirm the right version has been flashed
-sed -i 's/romVersion%>/& xqrepack/;' "$FSDIR/usr/lib/lua/luci/view/web/inc/footer.htm"
+#sed -i 's/romVersion%>/& xqrepack/;' "$FSDIR/usr/lib/lua/luci/view/web/inc/footer.htm"
 
 # stop resetting root password
 sed -i '/set_user(/a return 0' "$FSDIR/etc/init.d/system"
@@ -44,9 +44,9 @@ sed -i '/set_user(/a return 0' "$FSDIR/etc/init.d/system"
 #JS
 
 # add xqflash tool into firmware for easy upgrades
-cp xqflash "$FSDIR/sbin"
-chmod 0755      "$FSDIR/sbin/xqflash"
-chown root:root "$FSDIR/sbin/xqflash"
+#cp xqflash "$FSDIR/sbin"
+#chmod 0755      "$FSDIR/sbin/xqflash"
+#chown root:root "$FSDIR/sbin/xqflash"
 
 # dont start crap services
 #for SVC in stat_points statisticsservice \
