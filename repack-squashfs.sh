@@ -83,4 +83,4 @@ rm -f $FSDIR/etc/shadow.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
-mksquashfs "$FSDIR" "$IMG.new" -comp xz -b 256K -no-xattrs
+mksquashfs "$FSDIR" "$IMG.new" -b 256k -comp xz
