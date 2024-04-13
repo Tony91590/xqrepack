@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 #
 # repacks the kernel & rootfs image into a UBI image
 #
