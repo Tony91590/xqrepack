@@ -58,7 +58,7 @@ vol_name=rootfs_data
 vol_flags=autoresize
 CFGEND2
 
-ubinize -m 2048 -p 128KiB -O 2048 -o "$OUTPUT" "$UBICFG"
+ubinize -o "$OUTPUT" -m 2048 -p 128KiB -O 2048 "$UBICFG"
 
 echo "done."
 
