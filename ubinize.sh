@@ -9,7 +9,6 @@ set -e
 
 KERNEL=$1
 ROOTFS=$2
-ROOTFS_DATA=$3
 OUTPUT=r3600-raw-img.bin
 
 # check for ubinize
@@ -17,7 +16,6 @@ ubinize -V >/dev/null || { echo "need ubinize, from mtd-utils maybe?"; exit 1; }
 
 [ -f "$KERNEL" ] || { echo "kernel img doesnt exist."; exit 1; }
 [ -f "$ROOTFS" ] || { echo "rootfs doesnt exist."; exit 1; }
-[ -z "$ROOTFS_DATA" -o "$ROOTFS_DATA" = "--data" ] || { echo "invalid data argument."; exit 1; }
 
 # verify files
 ROOTFS_SIG=`hexdump -n 4 -e '"%_p"' "$ROOTFS"`
@@ -46,17 +44,6 @@ vol_type=dynamic
 vol_name=ubi_rootfs
 vol_alignment=1
 CFGEND
-
-# generate an empty rootfs_data volume if requested
-[ -n "$ROOTFS_DATA" ] && cat <<CFGEND2 >> $UBICFG
-[data]
-mode=ubi
-vol_size=1
-vol_id=2
-vol_type=dynamic
-vol_name=rootfs_data
-vol_flags=autoresize
-CFGEND2
 
 sudo ubinize -o "$OUTPUT" -m 2048 -p 128KiB -O 2048 "$UBICFG"
 
