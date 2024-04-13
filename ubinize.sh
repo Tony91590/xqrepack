@@ -36,13 +36,15 @@ image=$KERNEL
 vol_id=0
 vol_type=dynamic
 vol_name=kernel
+vol_alignment=1
 
-[rootfs]
+[ubi_rootfs]
 mode=ubi
 image=$ROOTFS
 vol_id=1
 vol_type=dynamic
 vol_name=ubi_rootfs
+vol_alignment=1
 CFGEND
 
 # generate an empty rootfs_data volume if requested
@@ -56,7 +58,7 @@ vol_name=rootfs_data
 vol_flags=autoresize
 CFGEND2
 
-ubinize -m 2048 -p 128KiB -o "$OUTPUT" "$UBICFG"
+ubinize -m 2048 -p 128KiB -O 2048 -o "$OUTPUT" "$UBICFG"
 
 echo "done."
 
