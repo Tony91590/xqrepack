@@ -4,7 +4,7 @@
  config core 'version'
  	# ROM ver
 -	option ROM '3.0.16'
-+	option ROM '3.0.16_SSH'
++	option ROM '3.0.16 SSH'
  	# channel
  	option CHANNEL 'release'
  	# hardware platform
