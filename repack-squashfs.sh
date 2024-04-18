@@ -28,6 +28,10 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 >&2 echo "patching squashfs..."
 
+# modify dropbear init
+sed -i 's/channel=.*/channel="debug"/g' "$FSDIR/etc/init.d/dropbear"
+sed -i 's/flg_ssh=.*/flg_ssh=1/' "$FSDIR/etc/init.d/dropbear"
+
 # make sure our backdoors are always enabled by default
 sed -i '/ssh_en/d;' "$FSDIR/usr/share/xiaoqiang/xiaoqiang-reserved.txt"
 sed -i '/ssh_en=/d; /uart_en=/d; /boot_wait=/d;' "$FSDIR/usr/share/xiaoqiang/xiaoqiang-defaults.txt"
@@ -54,7 +58,6 @@ NVRAM
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
-rm -f $FSDIR/etc/init.d/dropbear.orig
 rm -f $FSDIR/etc/shadow.orig
 rm -f $FSDIR/usr/share/xiaoqiang/xiaoqiang_version.orig
 
