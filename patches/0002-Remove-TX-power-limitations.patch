@@ -1,6 +1,6 @@
 diff -ur squashfs-root.6.mod/usr/share/xiaoqiang/xiaoqiang_version squashfs-root.7.mod/usr/share/xiaoqiang/xiaoqiang_version
---- usr/share/xiaoqiang/xiaoqiang_version	2021-03-18 15:43:12.075104493 +0500
-+++ usr/share/xiaoqiang/xiaoqiang_version	2021-11-27 22:36:21.964266776 +0500
+--- a/usr/share/xiaoqiang/xiaoqiang_version	2021-03-18 15:43:12.075104493 +0500
++++ b/usr/share/xiaoqiang/xiaoqiang_version	2021-11-27 22:36:21.964266776 +0500
 @@ -1,6 +1,6 @@
  config core 'version'
  	# ROM ver
