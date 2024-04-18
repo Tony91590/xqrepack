@@ -34,6 +34,7 @@ find patches -type f -name \*.orig -delete
 
 rm -f $FSDIR/etc/init.d/dropbear.orig
 rm -f $FSDIR/etc/shadow.orig
+rm -f $FSDIR/usr/share/xiaoqiang/xiaoqiang_version.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
