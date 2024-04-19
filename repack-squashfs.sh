@@ -32,6 +32,36 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 sed -i 's/channel=.*/channel="debug"/g' "$FSDIR/etc/init.d/dropbear"
 sed -i 's/flg_ssh=.*/flg_ssh=1/' "$FSDIR/etc/init.d/dropbear"
 
+# stop resetting root password
+sed -i '/set_user(/a return 0' "$FSDIR/etc/init.d/system"
+
+# stop phone-home in web UI
+cat <<JS >> "$FSDIR/www/js/miwifi-monitor.js"
+(function(){ if (typeof window.MIWIFI_MONITOR !== "undefined") window.MIWIFI_MONITOR.log = function(a,b) {}; })();
+JS
+
+# dont start crap services
+for SVC in stat_points statisticsservice \
+		datacenter \
+		xq_info_sync_mqtt \
+		xiaoqiang_sync \
+		plugincenter plugin_start_script.sh cp_preinstall_plugins.sh; do
+	rm -f $FSDIR/etc/rc.d/[SK]*$SVC
+done
+
+# prevent stats phone home & auto-update
+for f in StatPoints mtd_crash_log logupload.lua otapredownload; do > $FSDIR/usr/sbin/$f; done
+
+sed -i '/start_service(/a return 0' $FSDIR/etc/init.d/messagingagent.sh
+
+# cron jobs are mostly non-OpenWRT stuff
+for f in $FSDIR/etc/crontabs/*; do
+	sed -i 's/^/#/' $f
+done
+
+# as a last-ditch effort, change the *.miwifi.com hostnames to localhost
+sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
+
 # make sure our backdoors are always enabled by default
 sed -i '/ssh_en/d;' "$FSDIR/usr/share/xiaoqiang/xiaoqiang-reserved.txt"
 sed -i '/ssh_en=/d; /uart_en=/d; /boot_wait=/d;' "$FSDIR/usr/share/xiaoqiang/xiaoqiang-defaults.txt"
