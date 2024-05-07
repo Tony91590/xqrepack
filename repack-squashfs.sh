@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 #
 # unpack, modify and re-pack the Xiaomi R3600 firmware
 # removes checks for release channel before starting dropbear
@@ -38,7 +38,7 @@ sed -i 's/channel=.*/channel=release2/' "$FSDIR/etc/init.d/dropbear"
 sed -i 's/flg_ssh=.*/flg_ssh=1/' "$FSDIR/etc/init.d/dropbear"
 
 # mark web footer so that users can confirm the right version has been flashed
-sed -i 's/romVersion%>/& xqrepack-adriano/;' "$FSDIR/usr/lib/lua/luci/view/web/inc/footer.htm"
+sed -i 's/romVersion%>/& xqrepack/;' "$FSDIR/usr/lib/lua/luci/view/web/inc/footer.htm"
 
 # stop resetting root password
 sed -i '/set_user(/a return 0' "$FSDIR/etc/init.d/system"
@@ -104,6 +104,12 @@ sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
+rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
+rm -f $FSDIR/usr/lib/lua/luci/view/web/inc/wifi.html.orig
+rm -f $FSDIR/usr/lib/lua/luci/view/web/setting/wifi.htm.orig
+rm -f $FSDIR/usr/lib/lua/luci/view/web/apsetting/wifi.htm.orig
+rm -f $FSDIR/usr/lib/lua/luci/view/web/sysauth.htm.orig
+
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
-mksquashfs "$FSDIR" "$IMG.new" -comp xz -b 256K -no-xattrs
+mksquashfs "$FSDIR" "$IMG.new" -b 256k -comp xz

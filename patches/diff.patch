@@ -1,0 +1,123 @@
+--- a/lib/wifi/qcawificfg80211.sh
++++ b/lib/wifi/qcawificfg80211.sh
+@@ -3010,8 +3010,10 @@
+ 			txpower=`expr $max_power - 1`
+ 		elif [ "$txpwr" = "min" ]; then
+ 			txpower=`expr $max_power - 3`
+-		else
++		elif [ "$txpwr" = "max" ]; then
+ 			txpower="$max_power"
++		else
++			txpower="$txpwr"
+ 		fi
+ 
+ 		txpower="${txpower:-$vif_txpower}"
+--- a/usr/lib/lua/luci/view/web/apsetting/wifi.htm
++++ b/usr/lib/lua/luci/view/web/apsetting/wifi.htm
+@@ -174,6 +174,9 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
++                {/for}
+             </select>
+         </span>
+         <em class="t"></em>
+@@ -223,6 +226,9 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
++                {/for}
+             </select>
+         </span>
+         <em class="t"></em>
+@@ -291,6 +297,9 @@
+                     <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                     <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                     <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                    {for (var i=0; i<=30; i++)}
++                    <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
++                    {/for}
+                 </select>
+             </span>
+             <em class="t"></em>
+@@ -341,6 +350,9 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
++                {/for} 
+             </select>
+         </span>
+         <em class="t"></em>
+--- a/usr/lib/lua/luci/view/web/inc/wifi.html
++++ b/usr/lib/lua/luci/view/web/inc/wifi.html
+@@ -297,6 +297,9 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
++                {/for}
+             </select>
+         </span>
+         <em class="t"></em>
+@@ -421,6 +424,9 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
++                {/for}
+             </select>
+         </span>
+         <em class="t"></em>
+--- a/usr/lib/lua/luci/view/web/setting/wifi.htm
++++ b/usr/lib/lua/luci/view/web/setting/wifi.htm
+@@ -222,6 +222,9 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
++                {/for}
+             </select>
+         </span>
+         <em class="t"></em>
+@@ -347,6 +350,9 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
++                {/for}
+             </select>
+         </span>
+         <em class="t"></em>
+@@ -482,6 +488,9 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
++                {/for}
+             </select>
+         </span>
+         <em class="t"></em>
+--- a/usr/lib/lua/luci/view/web/sysauth.htm
++++ b/usr/lib/lua/luci/view/web/sysauth.htm
+@@ -144,9 +144,9 @@
+      ccode = '<%=ccode%>',
+      hardware = '<%=hardware%>';
+ 
+     if( ccode == 'CN' && hardware != 'r3a' && hardware != 'r3l' && hardware != 'r4c' && hardware != 'r4cm' && hardware != 'r4ac' && (isMobile.Android() || isMobile.iOS()) )  {
+-         $('#admin-mob').show();
++         $('#admin-PC').show();
+ 
+         if (isMobile.Android()) {
+             $('#install').attr('href','http://bigota.miwifi.com/xiaoqiang/client/xqapp_rom.apk');
+          }else {
