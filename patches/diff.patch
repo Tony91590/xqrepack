@@ -12,6 +12,19 @@
  		fi
  
  		txpower="${txpower:-$vif_txpower}"
+@@ -3038,12 +3038,8 @@
+ 		. /lib/update_system_params.sh
+ 		disable_qrfs
+ 	fi
+ 
+-	if [ $ifname = "wl2" ]; then
+-		ifconfig $ifname down
+-	fi
+-
+ 	lock -u /var/run/wifilock
+ }
+ 
+ setup_wps_enhc_device() {
 @@ -3838,8 +3838,9 @@
  	option hwmode	11${mode_11}
  	option htmode	'${htmode}'
