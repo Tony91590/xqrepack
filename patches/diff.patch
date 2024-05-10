@@ -34,83 +34,19 @@
  	fi
  	devidx=$(($devidx + 1))
  	done
---- a/etc/config/server_mapping
-+++ b/etc/config/server_mapping
-@@ -1,44 +1,44 @@
- config location dftlocation
-         option location 'RU'
- 
- config server 'server_CN'
--	option API api.miwifi.com
--	option S s.miwifi.com
--	option APP app.miwifi.com
--	option STUN stun.miwifi.com
--	option BROKER broker.miwifi.com
-+	option API localhost
-+	option S localhost
-+	option APP localhost
-+	option STUN localhost
-+	option BROKER localhost
- 
- config server 'server_IN'
--	option API in.api.miwifi.com
--	option S s.miwifi.com
--	option APP app.miwifi.com
--	option STUN in.stun.miwifi.com
--	option BROKER in.broker.miwifi.com
-+	option API localhost
-+	option S localhost
-+	option APP localhost
-+	option STUN localhost
-+	option BROKER localhost
- 
- config server 'server_EU'
--	option API eu.api.miwifi.com
--	option S s.miwifi.com
--	option APP app.miwifi.com
--	option STUN eu.stun.miwifi.com
--	option BROKER eu.broker.miwifi.com
-+	option API localhost
-+	option S localhost
-+	option APP localhost
-+	option STUN localhost
-+	option BROKER localhost
- 
- config server 'server_RU'
--	option API ru.api.miwifi.com
--	option S s.miwifi.com
--	option APP app.miwifi.com
--	option STUN ru.stun.miwifi.com
--	option BROKER ru.broker.miwifi.com
-+	option API localhost
-+	option S localhost
-+	option APP localhost
-+	option STUN localhost
-+	option BROKER localhost
- 
- config server 'server_SG'
--	option API sg.api.miwifi.com
--	option S s.miwifi.com
--	option APP app.miwifi.com
--	option STUN sg.stun.miwifi.com
--	option BROKER sg.broker.miwifi.com
-+	option API localhost
-+	option S localhost
-+	option APP localhost
-+	option STUN localhost
-+	option BROKER localhost
- 
- config server 'server_US'
--	option API us.api.miwifi.com
--	option S s.miwifi.com
--	option APP app.miwifi.com
--	option STUN us.stun.miwifi.com
--	option BROKER us.broker.miwifi.com
-+	option API localhost
-+	option S localhost
-+	option APP localhost
-+	option STUN localhost
-+	option BROKER localhost
+--- a/usr/share/xiaoqiang/xiaoqiang_version
++++ b/usr/share/xiaoqiang/xiaoqiang_version
+@@ -1,9 +1,9 @@
+ config core 'version'
+ 	# ROM ver
+ 	option ROM '3.0.16'
+ 	# channel
+-	option CHANNEL 'release'
++	option CHANNEL 'stable'
+ 	# hardware platform R1AC or R1N etc.
+ 	option HARDWARE 'R3600'
+ 	# CFE ver
+ 	option UBOOT '1.0.2'
 From 878e851b486856d40a12892fe21e94d48d2284b3 Mon Sep 17 00:00:00 2001
 From: Alexander Georgievskiy <galeksandrp@gmail.com>
 Date: Sun, 20 Jun 2021 10:47:30 +0300
