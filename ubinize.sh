@@ -3,7 +3,7 @@
 # repacks the kernel & rootfs image into a UBI image
 #
 # 2020.07.20  darell tan
-#
+# 
 
 set -e
 
