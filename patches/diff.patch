@@ -1,29 +1,29 @@
 --- a/lib/wifi/qcawificfg80211.sh
 +++ b/lib/wifi/qcawificfg80211.sh
-@@ -2970,19 +2970,16 @@
+@@ -2968,22 +2968,8 @@
+ 			iwpriv "$ifname" 11ngvhtintop 1
+ 		else
  			max_power=30
  		fi
- 		if [ "$bd_country_code" = "EU" ]; then
- 			if [ "$bdmode" = "24G" ]; then
+-		if [ "$bd_country_code" = "EU" ]; then
+-			if [ "$bdmode" = "24G" ]; then
 -				max_power=14
-+				max_power=20
- 			else
- 				if [ "$channel" -ge 100 ]; then
-+				   max_power=26
-+				else
- 				   max_power=23
+-			else
+-				if [ "$channel" -ge 100 ]; then
+-				   max_power=23
 -				else
 -				   max_power=16
- 				fi
- 			fi
+-				fi
+-			fi
 -		    if [ $ifname = "wl2" ]; then
 -        		max_power=13
 -    		fi		
- 		fi
+-		fi
  		config_get txpwr "$device" txpwr
  		if [ "$txpwr" = "mid" ]; then
  			txpower=`expr $max_power - 1`
-@@ -3830,9 +3827,9 @@
+ 		elif [ "$txpwr" = "min" ]; then
+@@ -3830,9 +3816,9 @@
  
  EOF
  	if [ $devidx = 0 ]; then
