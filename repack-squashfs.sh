@@ -100,6 +100,7 @@ rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
 rm -f $FSDIR/usr/lib/lua/luci/view/web/apsetting/wifi.htm.orig
 rm -f $FSDIR/usr/lib/lua/luci/view/web/inc/wifi.html.orig
 rm -f $FSDIR/usr/lib/lua/luci/view/web/setting/wifi.htm.orig
+rm -f $FSDIR/etc/config/server_mapping.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
