@@ -32,6 +32,7 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
+rm -f $FSDIR/etc/init.d/dropbear.orig
 rm -f $FSDIR/etc/shadow.orig
 
 >&2 echo "repacking squashfs..."
