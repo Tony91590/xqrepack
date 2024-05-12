@@ -32,7 +32,7 @@
 +	option ROM '3.0.16_mod'
  	# channel
 -	option CHANNEL 'release'
-+	option CHANNEL 'custom'
++	option CHANNEL 'release'
  	# hardware platform R1AC or R1N etc.
  	option HARDWARE 'R3600'
  	# CFE ver
