@@ -23,26 +23,16 @@
  		if [ "$txpwr" = "mid" ]; then
  			txpower=`expr $max_power - 1`
  		elif [ "$txpwr" = "min" ]; then
-@@ -3830,9 +3816,9 @@
- 
- EOF
- 	if [ $devidx = 0 ]; then
- 		cat <<EOF
--	option channel_block_list '52,56,60,64,100,104,108,112,116,120,124,128,132,136,140,144'
-+	option channel_block_list '52,56,60,64'
- EOF
- 	fi
- 	devidx=$(($devidx + 1))
- 	done
 --- a/usr/share/xiaoqiang/xiaoqiang_version
 +++ b/usr/share/xiaoqiang/xiaoqiang_version
 @@ -1,9 +1,9 @@
  config core 'version'
  	# ROM ver
 -	option ROM '3.0.16'
-+	option ROM '3.0.22'
++	option ROM '3.0.16_mod'
  	# channel
- 	option CHANNEL 'release'
+-	option CHANNEL 'release'
++	option CHANNEL 'custom'
  	# hardware platform R1AC or R1N etc.
  	option HARDWARE 'R3600'
  	# CFE ver
