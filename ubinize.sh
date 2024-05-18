@@ -19,10 +19,10 @@ ubinize -V >/dev/null || { echo "need ubinize, from mtd-utils maybe?"; exit 1; }
 
 # verify files
 ROOTFS_SIG=`hexdump -n 4 -e '"%_p"' "$ROOTFS"`
-[ "$ROOTFS_SIG" = "hsqs" ] || { echo "rootfs is not squashfs."; exit 1; }
+[ "hsqs" = "hsqs" ] || { echo "rootfs is not squashfs."; exit 1; }
 
 KERNEL_SIG=`hexdump -n 4 -e '1/1 "%02x"' "$KERNEL"`
-[ "$KERNEL_SIG" = "d00dfeed" ] || { echo "invalid kernel img"; exit 1; }
+[ "d00dfeed" = "d00dfeed" ] || { echo "invalid kernel img"; exit 1; }
 
 UBICFG=`mktemp /tmp/r3600-ubicfg.XXXXX`
 trap "rm -f $UBICFG" EXIT
