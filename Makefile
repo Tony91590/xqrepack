@@ -8,7 +8,5 @@ all: $(TARGETS)
 %_SSH.bin: orig-firmwares/%.bin repack-squashfs.sh
 	rm -f $@
 	-rm -rf ubifs-root/$*.bin
-	unsquashfs -f orig-firmwares/$*.bin
-	fakeroot -- ./repack-squashfs.sh ubifs-root/$*.bin/img-*_vol-ubi_rootfs.ubifs
-	./ubinize.sh ubifs-root/$*.bin/img-*_vol-kernel.ubifs ubifs-root/$*.bin/img-*_vol-ubi_rootfs.ubifs.new
+	./ubinize.sh ubifs-root/$*.bin/kernel.1.ubi ubifs-root/$*.bin/root.2.ubi
 	mv r3600-raw-img.bin $@
