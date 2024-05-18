@@ -43,6 +43,14 @@ vol_id=1
 vol_type=dynamic
 vol_name=rootfs
 vol_alignment=1
+
+[data]
+mode=ubi
+vol_size=1
+vol_id=2
+vol_type=dynamic
+vol_name=rootfs_data
+vol_flags=autoresize
 CFGEND
 
 sudo ubinize -o "$OUTPUT" -m 2048 -p 128KiB -O 2048 "$UBICFG"
