@@ -36,12 +36,12 @@ vol_type=dynamic
 vol_name=kernel
 vol_alignment=1
 
-[ubi_rootfs]
+[rootfs]
 mode=ubi
 image=$ROOTFS
 vol_id=1
 vol_type=dynamic
-vol_name=ubi_rootfs
+vol_name=rootfs
 vol_alignment=1
 CFGEND
 
