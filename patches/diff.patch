@@ -10,15 +10,3 @@
  e:option(ListValue,"input",translate("Input")),
  e:option(ListValue,"output",translate("Output")),
  e:option(ListValue,"forward",translate("Forward"))
---- a/usr/lib64/lua/luci/model/cbi/firewall/zones.lua
-+++ b/usr/lib64/lua/luci/model/cbi/firewall/zones.lua
-@@ -9,9 +9,8 @@
- e.anonymous=true
- e.addremove=false
- e:option(Flag,"syn_flood",translate("Enable SYN-flood protection"))
- o=e:option(Flag,"drop_invalid",translate("Drop invalid packets"))
--e:option(Flag,"fullcone",translate("Enable FullCone NAT"))
- a={
- e:option(ListValue,"input",translate("Input")),
- e:option(ListValue,"output",translate("Output")),
- e:option(ListValue,"forward",translate("Forward"))
