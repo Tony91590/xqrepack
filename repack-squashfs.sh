@@ -29,7 +29,8 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 >&2 echo "patching squashfs..."
 
-
+# copy the latest firmware of wifi
+cp -R lib/* "$FSDIR/lib/"
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
