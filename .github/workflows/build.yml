@@ -18,8 +18,9 @@ jobs:
     - name: pip install
       run: pip install python-lzo ubi_reader
     - name: make
+      run: sudo ./repack-squashfs.sh
+    - name: make
       run: sudo ./ubinize.sh
-
     - uses: actions/upload-artifact@v4
       with:
         name: r3600-raw-img.bin
