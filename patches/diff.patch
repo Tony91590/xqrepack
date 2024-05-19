@@ -1,4 +1,4 @@
---- a/usr/lib/lua/luci/model/cbi/firewallzones.lua
+--- a/usr/lib/lua/luci/model/cbi/firewall/zones.lua
 +++ b/usr/lib/lua/luci/model/cbi/firewall/zones.lua
 @@ -3010,8 +3010,10 @@
  			txpower=`expr $max_power - 1`
