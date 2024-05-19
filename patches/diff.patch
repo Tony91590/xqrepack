@@ -1,5 +1,5 @@
---- a/lib/wifi/qcawificfg80211.sh
-+++ b/lib/wifi/qcawificfg80211.sh
+--- a/usr/lib/lua/luci/model/cbi/firewallzones.lua
++++ b/usr/lib/lua/luci/model/cbi/firewall/zones.lua
 @@ -3010,8 +3010,10 @@
  			txpower=`expr $max_power - 1`
  		elif [ "$txpwr" = "min" ]; then
