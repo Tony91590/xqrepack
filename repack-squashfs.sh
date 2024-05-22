@@ -37,6 +37,7 @@ rm -f $FSDIR/etc/banner.orig
 rm -f $FSDIR/etc/openwrt_release.orig
 rm -f $FSDIR/usr/lib/os-release.orig
 rm -f $FSDIR/etc/openwrt_version.orig
+rm -f $FSDIR/etc/opkg/distfeeds.conf.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
