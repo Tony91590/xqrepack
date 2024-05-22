@@ -20,10 +20,6 @@
 -DISTRIB_DESCRIPTION='OpenWrt 19.07-SNAPSHOT r0-'
 +DISTRIB_DESCRIPTION='OpenWrt 19.07-SNAPSHOT'
  DISTRIB_TAINTS='no-all busybox override'
---- a/etc/openwrt_version
-+++ b/etc/openwrt_version
-@@ -1,1 +1,0 @@
--r0-
 --- a/usr/lib/os-release
 +++ b/usr/lib/os-release
 @@ -6,13 +6,13 @@
@@ -42,3 +38,7 @@
  OPENWRT_DEVICE_REVISION="v0"
 -OPENWRT_RELEASE="OpenWrt 19.07-SNAPSHOT r0-"
 +OPENWRT_RELEASE="OpenWrt 19.07-SNAPSHOT"
+--- a/etc/openwrt_version
++++ b/etc/openwrt_version
+@@ -1,1 +1,0 @@
+-r0-
