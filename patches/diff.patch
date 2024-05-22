@@ -1,12 +1,19 @@
---- a/usr/lib/lua/luci/model/cbi/firewall/zones.lua
-+++ b/usr/lib/lua/luci/model/cbi/firewall/zones.lua
-@@ -9,9 +9,8 @@
- e.anonymous=true
- e.addremove=false
- e:option(Flag,"syn_flood",translate("Enable SYN-flood protection"))
- o=e:option(Flag,"drop_invalid",translate("Drop invalid packets"))
--e:option(Flag,"fullcone",translate("Enable FullCone NAT"))
- a={
- e:option(ListValue,"input",translate("Input")),
- e:option(ListValue,"output",translate("Output")),
- e:option(ListValue,"forward",translate("Forward"))
+===================================================================
+--- firstFile
++++ SecondFile
+@@ -6,13 +6,13 @@
+ VERSION_ID="19.07-snapshot"
+ HOME_URL="https://openwrt.org/"
+ BUG_URL="https://bugs.openwrt.org/"
+ SUPPORT_URL="https://forum.openwrt.org/"
+-BUILD_ID="r0-"
++BUILD_ID=""
+ OPENWRT_BOARD="ipq807x/generic"
+ OPENWRT_ARCH="aarch64_cortex-a53_neon-vfpv4"
+ OPENWRT_TAINTS="no-all busybox override"
+ OPENWRT_DEVICE_MANUFACTURER="OpenWrt"
+ OPENWRT_DEVICE_MANUFACTURER_URL="https://openwrt.org/"
+ OPENWRT_DEVICE_PRODUCT="Generic"
+ OPENWRT_DEVICE_REVISION="v0"
+-OPENWRT_RELEASE="OpenWrt 19.07-SNAPSHOT r0-"
++OPENWRT_RELEASE="OpenWrt 19.07-SNAPSHOT"
