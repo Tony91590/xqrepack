@@ -33,6 +33,12 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
+
+patching file etc/banner.orig
+patching file etc/openwrt_release.orig
+patching file usr/lib/os-release.orig
+patching file etc/openwrt_version.orig
+
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
 mksquashfs "$FSDIR" "$IMG.new" -b 256k -comp xz
