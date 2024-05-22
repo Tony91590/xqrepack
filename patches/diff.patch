@@ -1,6 +1,31 @@
-===================================================================
---- firstFile
-+++ SecondFile
+--- a/etc/banner
++++ b/etc/banner
+@@ -13,6 +13,6 @@
+     MMMMMM       MMMMN     M           MMMMMMMMM      MMMM    MMMM
+      MMMM          M                    MMMMMMM        M       M
+        M
+  ---------------------------------------------------------------
+-   For those about to rock... OpenWrt 19.07-SNAPSHOT, r0-
++   For those about to rock... OpenWrt 19.07-SNAPSHOT
+  ---------------------------------------------------------------
+--- a/etc/openwrt_release
++++ b/etc/openwrt_release
+@@ -1,7 +1,7 @@
+ DISTRIB_ID='OpenWrt'
+ DISTRIB_RELEASE='19.07-SNAPSHOT'
+-DISTRIB_REVISION='r0-'
++DISTRIB_REVISION=''
+ DISTRIB_TARGET='ipq807x/generic'
+ DISTRIB_ARCH='aarch64_cortex-a53_neon-vfpv4'
+-DISTRIB_DESCRIPTION='OpenWrt 19.07-SNAPSHOT r0-'
++DISTRIB_DESCRIPTION='OpenWrt 19.07-SNAPSHOT'
+ DISTRIB_TAINTS='no-all busybox override'
+--- a/etc/openwrt_version
++++ b/etc/openwrt_version
+@@ -1,1 +1,0 @@
+-r0-
+--- a/usr/lib/os-release
++++ b/usr/lib/os-release
 @@ -6,13 +6,13 @@
  VERSION_ID="19.07-snapshot"
  HOME_URL="https://openwrt.org/"
