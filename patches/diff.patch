@@ -50,8 +50,8 @@
 -src/gz openwrt_luci https://downloads.openwrt.org/releases/19.07-SNAPSHOT/packages/aarch64_cortex-a53/luci
 -src/gz openwrt_packages https://downloads.openwrt.org/releases/19.07-SNAPSHOT/packages/aarch64_cortex-a53/packages
 -src/gz openwrt_routing https://downloads.openwrt.org/releases/19.07-SNAPSHOT/packages/aarch64_cortex-a53/routing
-+src/gz openwrt_base https://downloads.openwrt.org/releases/19.07.9//packages/aarch64_cortex-a53/base
-+src/gz openwrt_luci https://downloads.openwrt.org/releases/19.07.9//packages/aarch64_cortex-a53/luci
-+src/gz openwrt_packages https://downloads.openwrt.org/releases/19.07.9//packages/aarch64_cortex-a53/packages
-+src/gz openwrt_routing https://downloads.openwrt.org/releases/19.07.9//packages/aarch64_cortex-a53/routing
++src/gz openwrt_base https://downloads.openwrt.org/releases/19.07.9/packages/aarch64_cortex-a53/base
++src/gz openwrt_luci https://downloads.openwrt.org/releases/19.07.9/packages/aarch64_cortex-a53/luci
++src/gz openwrt_packages https://downloads.openwrt.org/releases/19.07.9/packages/aarch64_cortex-a53/packages
++src/gz openwrt_routing https://downloads.openwrt.org/releases/19.07.9/packages/aarch64_cortex-a53/routing
 
