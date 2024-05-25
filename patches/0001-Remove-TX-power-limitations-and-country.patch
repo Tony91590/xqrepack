@@ -11,8 +11,7 @@
 -
 -		config_get_bool vap_contryie "$vif" vap_contryie 0
 -		[ -n "$vap_contryie" ] && "$device_if" "$ifname" vap_contryie "$vap_contryie"
--
-+  
+
  		config_get ppdu_duration "$device" ppdu_duration
  		[ -n "$ppdu_duration" ] && "$device_if" "$phy" ppdu_duration "${ppdu_duration}"
  
