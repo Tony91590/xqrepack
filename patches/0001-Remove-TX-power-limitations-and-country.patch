@@ -1,8 +1,24 @@
-diff --git a/lib/wifi/qcawificfg80211.sh b/lib/wifi/qcawificfg80211.sh
-index ae2c09e..9b1d16a 100644
 --- a/lib/wifi/qcawificfg80211.sh
 +++ b/lib/wifi/qcawificfg80211.sh
-@@ -2977,34 +2977,6 @@ enable_qcawificfg80211() {
+@@ -2020,14 +2020,11 @@
+ 
+ 		config_get bintval "$vif" bintval
+ 		[ -n "$bintval" ] && "$device_if" "$ifname" bintval "$bintval"
+ 
+-		config_get_bool countryie "$vif" countryie 0
++		config_get_bool countryie "$vif" countryie 1
+ 		[ -n "$countryie" ] && "$device_if" "$ifname" countryie "$countryie"
+-
+-		config_get_bool vap_contryie "$vif" vap_contryie 0
+-		[ -n "$vap_contryie" ] && "$device_if" "$ifname" vap_contryie "$vap_contryie"
+-
++  
+ 		config_get ppdu_duration "$device" ppdu_duration
+ 		[ -n "$ppdu_duration" ] && "$device_if" "$phy" ppdu_duration "${ppdu_duration}"
+ 
+ 		config_get he_ul_ppdu_dur "$device" he_ul_ppdu_dur
+@@ -2976,36 +2973,9 @@
+ 			iwpriv "$ifname" 11ngvhtintop 1
  		else
  			max_power=30
  		fi
@@ -34,15 +50,8 @@ index ae2c09e..9b1d16a 100644
 -				max_power=13
 -			fi
 -		fi
++  
  		config_get txpwr "$device" txpwr
  		if [ "$txpwr" = "mid" ]; then
  			txpower=`expr $max_power - 1`
-@@ -3866,7 +3838,7 @@ config wifi-iface
- EOF
- 	if [ $devidx = 0 ]; then
- 		cat <<EOF
--	option channel_block_list '52,56,60,64,100,104,108,112,116,120,124,128,132,136,140,144,165'
-+	option channel_block_list '52,56,60,64'
- 	option miwifi_mesh '1'
- EOF
- 	fi
+ 		elif [ "$txpwr" = "min" ]; then
