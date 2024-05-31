@@ -14,7 +14,7 @@ jobs:
     - name: apt install
       run: sudo apt install -y liblzo2-dev mtd-utils squashfs-tools fakeroot
     - name: pipx upgrade
-      run: sudo python -m pip install --break-system-packages
+      run: sudo python -m pip install --upgrade pip --break-system-packages
     - name: pipx install
       run: pip install python-lzo ubi_reader
     - name: make
