@@ -10,4 +10,4 @@
           $('#admin-mob').show();
  
          if (isMobile.Android()) {
-             $('#install').attr('href','http://bigota.miwifi.com/xiaoqiang/client/xqapp_rom.apk');    
+             $('#install').attr('href','http://bigota.miwifi.com/xiaoqiang/client/xqapp_rom.apk');
