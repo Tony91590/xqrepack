@@ -16,25 +16,25 @@
  		[ -n "$ppdu_duration" ] && "$device_if" "$phy" ppdu_duration "${ppdu_duration}"
  
  		config_get he_ul_ppdu_dur "$device" he_ul_ppdu_dur
-@@ -2976,36 +2973,9 @@
- 			iwpriv "$ifname" 11ngvhtintop 1
- 		else
+@@ -2978,34 +2978,18 @@
  			max_power=30
  		fi
--		if [ "$bd_country_code" = "EU" ]; then
--			if [ "$bdmode" = "24G" ]; then
+ 		if [ "$bd_country_code" = "EU" ]; then
+ 			if [ "$bdmode" = "24G" ]; then
 -				max_power=14
--			else
--				if [ "$channel" -ge 100 ]; then
--					max_power=23
--				else
++				max_power=17
+ 			else
+ 				if [ "$channel" -ge 100 ]; then
+ 					max_power=23
+ 				else
 -					max_power=16
--				fi
--			fi
++					max_power=20
+ 				fi
+ 			fi
 -			if [ $ifname = "wl2" ]; then
 -				max_power=13
 -			fi
--		fi
+ 		fi
 -		#miwifi: reduce 3db for Brazil band1
 -		if [ "$nv_country_code" = "BR" ]; then
 -			if [ "$bdmode" = "5G" -a "$channel" -le 48 ]; then
