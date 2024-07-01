@@ -1,6 +1,6 @@
 ===================================================================
---- firstFile
-+++ SecondFile
+--- a/lib/wifi/qcawificfg80211.sh
++++ b/lib/wifi/qcawificfg80211.sh
 @@ -2978,32 +2978,32 @@
  			max_power=30
  		fi
