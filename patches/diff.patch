@@ -41,3 +41,26 @@
  		fi
  		config_get txpwr "$device" txpwr
  		if [ "$txpwr" = "mid" ]; then
+--- a/etc/init.d/dropbear
++++ b/etc/init.d/dropbear
+@@ -130,10 +130,9 @@
+ start_service()
+ {
+ 	# 稳定版不能打开ssh服务
+ 	flg_ssh=`nvram get ssh_en`
+-	channel=`/sbin/uci get /usr/share/xiaoqiang/xiaoqiang_version.version.CHANNEL`
+-	if [ "$flg_ssh" != "1" -o "$channel" = "release" ]; then
++	if [ "$flg_ssh" != "1" ]; then
+ 		return 0
+ 	fi
+ 
+ 	[ -s /etc/dropbear/dropbear_rsa_host_key ] || keygen
+--- a/etc/shadow
++++ b/etc/shadow
+@@ -1,5 +1,5 @@
+-root:$1$MULfKgY6$rdJYoUcznNYSPtoW5M5I3/:18191:0:99999:7:::
++root:$1$qtLLI4cm$c0v3yxzYPI46s28rbAYG//:18191:0:99999:7:::
+ daemon:*:0:0:99999:7:::
+ ftp:*:0:0:99999:7:::
+ network:*:0:0:99999:7:::
+ nobody:*:0:0:99999:7:::
