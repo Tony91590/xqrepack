@@ -22,6 +22,7 @@
 +src/gz openwrt_luci https://downloads.openwrt.org/releases/19.07.9/packages/aarch64_cortex-a53/luci
 +src/gz openwrt_packages https://downloads.openwrt.org/releases/19.07.9/packages/aarch64_cortex-a53/packages
 +src/gz openwrt_routing https://downloads.openwrt.org/releases/19.07.9/packages/aarch64_cortex-a53/routing
+===================================================================
 --- a/usr/lib/lua/luci/view/admin_status/index.htm
 +++ b/usr/lib/lua/luci/view/admin_status/index.htm
 @@ -702,10 +702,10 @@
