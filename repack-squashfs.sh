@@ -35,6 +35,7 @@ find patches -type f -name \*.orig -delete
 
 rm -f $FSDIR/usr/lib/lua/luci/model/cbi/firewall/zones.lua.orig
 rm -f $FSDIR/etc/opkg/distfeeds.conf.orig
+rm -f $FSDIR/usr/lib/lua/luci/view/admin_status/index.htm.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
