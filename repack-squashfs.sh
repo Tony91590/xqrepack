@@ -34,6 +34,7 @@ find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
 rm -f $FSDIR/usr/lib/lua/luci/model/cbi/firewall/zones.lua.orig
+rm -f $FSDIR/etc/opkg/distfeeds.conf.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
