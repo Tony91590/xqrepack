@@ -35,9 +35,6 @@ find patches -type f -name \*.orig -delete
 
 rm -f $FSDIR/usr/lib/lua/luci/model/cbi/firewall/zones.lua.orig
 
-# copy the latest firmware of wifi
-cp -R lib/* "$FSDIR/lib/"
-
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
 mksquashfs "$FSDIR" "$IMG.new" -b 256k -comp xz
