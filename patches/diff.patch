@@ -22,3 +22,18 @@
 +src/gz openwrt_luci https://downloads.openwrt.org/releases/19.07.9/packages/aarch64_cortex-a53/luci
 +src/gz openwrt_packages https://downloads.openwrt.org/releases/19.07.9/packages/aarch64_cortex-a53/packages
 +src/gz openwrt_routing https://downloads.openwrt.org/releases/19.07.9/packages/aarch64_cortex-a53/routing
+--- a/etc/index.htm
++++ b/etc/index.htm
+@@ -702,10 +702,10 @@
+ 				);
+ 
+ 			if (e = document.getElementById('memfree'))
+ 				e.innerHTML = progressbar(
+-					(info.memory.free / 1048576) + " <%:MB%>",
+-					(info.memory.total / 1048576) + " <%:MB%>"
++					Math.floor(info.memory.free / 1048576) + " <%:MB%>",
++					Math.floor(info.memory.total / 1048576) + " <%:MB%>"
+ 				);
+ 
+ 			if (e = document.getElementById('membuff'))
+ 				e.innerHTML = progressbar(
