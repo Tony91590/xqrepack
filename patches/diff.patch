@@ -25,6 +25,17 @@
 ===================================================================
 --- a/usr/lib/lua/luci/view/admin_status/index.htm
 +++ b/usr/lib/lua/luci/view/admin_status/index.htm
+@@ -57,9 +57,9 @@
+ 		local user_info = luci.sys.exec("cat /proc/net/arp | grep 'br-lan' | grep '0x2' | wc -l")
+ 		
+ 		local cpu_usage = (luci.sys.exec("expr 100 - $(top -n 1 | grep 'CPU:' | awk -F '%' '{print$4}' | awk -F ' ' '{print$2}')") or "6") .. "%"
+ 
+-		local cpu_hz = luci.sys.exec  ("echo -e `expr $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq) / 1000`")
++		local cpu_hz = luci.sys.exec("echo -e `expr $(cat /sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq) / 1000`")
+ 	
+ 		local eth_info = ""
+ 		if not has_switch then
+ 			eth_info = luci.sys.exec("/sbin/ethinfo")
 @@ -702,10 +702,10 @@
  				);
  
