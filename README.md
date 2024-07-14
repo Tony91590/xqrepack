@@ -1,11 +1,14 @@
-xqrepack
+xqrepack fork
 =========
 
 These scripts allow you to modify the *Xiaomi R3600* firmware image to make sure SSH and UART access is always enabled.
 
 The default root password is `password`. Please remember to login to the router and change that after the upgrade. Your router settings like IP address and SSIDs are stored in the nvram and should stay the same.
 
-Note that in order to get SSH access to the router initially, you need to [downgrade to version 1.0.17 and exploit it first](https://forum.openwrt.org/t/adding-openwrt-support-for-ax3600/55049/121).
+⚠ The script also tries its best to remove or disable phone-home binaries, and also the smart controller (AIoT) parts, leaving you with a (close to) OpenWRT router that you can configure via UCI or `/etc/config`.
+Between preserving stock functionality and privacy concerns, I would err on the side of caution and rather that some functionality be sacrificed for a router that I have more confidence to connect to the Internet.
+
+Note that in order to get SSH access to the router initially, you need to [downgrade to version 1.0.17 and exploit it first](https://forum.openwrt.org/t/adding-openwrt-support-for-ax3600/55049/123).
 Once you have SSH, you can use this repacking method to maintain SSH access for newer versions.
 
 Requirements
@@ -21,43 +24,42 @@ You will need to install the following tools:
 Usage
 =======
 
-1. Download the firmware from miwifi.com.
+1. Download the firmware(s) from miwifi.com.
    It should be something like `miwifi_r3600_firmware_xxx_yyy.bin`.
+   Put it/them to `orig-firmwares` directory.
 
-2. Use the `ubireader_extract_images` utility from ubi_reader to unpack the UBI image from the firmware.
-   Technically there's junk at the front, but the script will ignore it:
+2. Run `make` to build archives of patched firmwares.
+   Parallel build not supported!
+   This will build patched images with following naming convention:
+   - `<firmware_image_name>+SSH.zip`: patched with original `repack-squashfs.sh` script, which enables SSH and does its best to disable Xiaomi functions/bloatware
+   - `<firmware_image_name>+SSH+MI.zip`: enables SSH, but leaves Xiaomi functions intact, only ota predownload is disabled
+   - `<firmware_image_name>+SSH+opt.zip`, `<firmware_image_name>+SSH+MI+opt.zip`: same as the respective two above, with additionally `/opt` directory created
 
-        ubireader_extract_images -w miwifi_r3600_firmware_xxx_yyy.bin
-
-    The unpacked files will be in the `ubifs-root/miwifi_r3600_firmware...` directory.
-
-3. Patch the rootfs using the `repack-squashfs.sh` script:
-
-        fakeroot -- ./repack-squashfs.sh ubifs-root/miwifi_r3600_firmware.../img-264..._vol-ubi_rootfs.ubifs
-
-   The script will create a new	squashfs image with the `.new` suffix.
-   You will need `fakeroot` in order to create files and devices as `root`. You _could_ also run this script as `root`, but please don't.
-
-4. Recombine the kernel and patched rootfs with `ubinize.sh`:
-
-        ./ubinize.sh ubifs-root/miwifi_r3600_firmware.../...kernel.ubifs \
-                     ubifs-root/miwifi_r3600_firmware.../...ubi_rootfs.ubifs.new
-
-   Note the use of the `.ubifs.new` file.
-   The combined output file will be `r3600-raw-img.bin`.
-
-5. Flash this file directly into the router using SSH.
+3. After extracting a generated archive of your liking, you will get `r3600-raw-img.bin` file.
+   Flash this file directly into the router using SSH.
    You cannot use the web UI because this is a raw image, and more importantly has no signature.
 
-   The R3600 firmware uses an A/B partition system, called `rootfs` and `rootfs_1`. This corresponds to `mtd12` and `mtd13`. Find the partition that is not the one in use and use `ubiformat` to write the raw image onto the partition:
+   If you are using a recently xqrepack'ed firmware, you can use the `xqflash` utility on the router to flash an update image:
 
-        ubiformat /dev/mtd12 -f /tmp/r3600-raw-img.bin -s 2048 -O 2048
+        xqflash /tmp/r3600-raw-img.bin
 
-6. Set the nvram variable to re-initialize `/etc` (and I think to switch partitions also):
+   After it completes successfully, you should be able to `reboot`.
 
-        nvram set flag_ota_reboot=1
-        nvram commit
-        reboot
+   If the `xqflash` utility is not available, you can manually flash the update image described in the following section.
+
+
+Manual Flashing
+================
+
+The R3600 firmware uses an A/B partition system, called `rootfs` and `rootfs_1`. This corresponds to `mtd12` and `mtd13`. Find the partition that is not the one in use and use `ubiformat` to write the raw image onto the partition:
+
+    ubiformat /dev/mtd12 -f /tmp/r3600-raw-img.bin -s 2048 -O 2048
+
+Set the nvram variable to re-initialize `/etc` (and I think to switch partitions also):
+
+    nvram set flag_ota_reboot=1
+    nvram commit
+    reboot
 
 
 A/B Partitions
@@ -86,7 +88,7 @@ License
 
 **xqrepack** is licensed under **the 3-clause ("modified") BSD License**.
 
-Copyright (C) 2020 Darell Tan
+Copyright (C) 2020-2021 Darell Tan, 2021 Alex Potapenko
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
