@@ -10,4 +10,3 @@
  
  config misc httpd
  	option uhttpd 0
- 
