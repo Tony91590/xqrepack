@@ -1,6 +1,5 @@
-===================================================================
---- firstFile
-+++ SecondFile
+--- a/lib/wifi/qcawificfg80211.sh
++++ b/lib/wifi/qcawificfg80211.sh
 @@ -64,9 +64,9 @@
  	option apcli_5g_ifname 'wl12'
  	option apcli_5g_deviceidx 'device_5g'
