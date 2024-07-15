@@ -63,7 +63,7 @@
  		if [ "$txpwr" = "mid" ]; then
  			txpower=`expr $max_power - 1`
  		elif [ "$txpwr" = "min" ]; then
-@@ -3839,9 +3815,9 @@
+@@ -3839,18 +3815,23 @@
  	option htmode	'${htmode}'
  	option country	'$country_code'
  	option disabled '$disable'
@@ -71,6 +71,22 @@
 -	option ax '1'
 +	option ax '0'
  EOF
- 	if [ $devidx = 2 ]; then
+-	if [ $devidx = 2 ]; then
++	if [ $devidx = 0 ]; then
  		cat <<EOF
++	option bw 80
++EOF
++	fi
++	if [ $devidx = 1 ]; then
++		cat <<EOF
  	option bw 20
+ EOF
+ 	fi
+-	if [ $devidx = 0 ]; then
++	if [ $devidx = 2 ]; then
+ 		cat <<EOF
+-	option bw 80
++	option bw 20
+ EOF
+ 	fi
+ 	cat <<EOF
