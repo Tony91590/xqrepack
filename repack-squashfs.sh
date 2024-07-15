@@ -104,8 +104,9 @@ sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
-/etc/config/upnpd
-/etc/config/misc
+rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
+rm -f $FSDIR/etc/config/upnpd.orig
+rm -f $FSDIR/etc/config/misc.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
