@@ -1,6 +1,5 @@
-===================================================================
---- firstFile
-+++ SecondFile
+--- a/lib/xqwhc/xqwhc_sync.sh
++++ b/lib/xqwhc/xqwhc_sync.sh
 @@ -94,10 +94,17 @@
  
      ieee80211w_5g="`uci -q get wireless.@wifi-iface[0].ieee80211w`"
