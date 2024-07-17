@@ -34,17 +34,14 @@ index 9a4ecf4..b65ee92 100644
      option priority '1'
 --- a/lib/wifi/qcawificfg80211.sh
 +++ b/lib/wifi/qcawificfg80211.sh
-@@ -2932,16 +2932,19 @@
+@@ -2932,13 +2932,16 @@
  		# the latter doesn't exist
  
  		# for miwifi
  		if [ "$bdmode" = "24G" ]; then
 -			max_power=30
 +			max_power=20
- 			wifitool "$ifname" setUnitTestCmd 67 2 16 0x34
  			wifitool "$ifname" setUnitTestCmd 67 3 16 1 1
- 			wifitool "$ifname" setUnitTestCmd 67 4 16 1 -5 35
- 			wifitool "$ifname" setUnitTestCmd 67 5 12 1 -5 35 10
  			iwpriv "$ifname" 11ngvhtintop 1
  		else
 -			max_power=30
@@ -56,7 +53,7 @@ index 9a4ecf4..b65ee92 100644
  
  		config_get txpwr "$device" txpwr
  		if [ "$txpwr" = "mid" ]; then
-@@ -3753,12 +3756,12 @@
+@@ -3750,12 +3753,12 @@
  	option channel	auto
  	option macaddr	$(cat /sys/class/net/${dev}/address)
  	option hwmode	11${mode_11}
@@ -71,7 +68,7 @@ index 9a4ecf4..b65ee92 100644
  	if [ $devidx = 2 ]; then
  		cat <<EOF
  	option bw 20
-@@ -3777,9 +3780,9 @@
+@@ -3774,9 +3777,9 @@
  
  EOF
  	if [ $devidx = 0 ]; then
