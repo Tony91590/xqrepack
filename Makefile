@@ -1,4 +1,4 @@
-FIRMWARES:=$(shell cd orig-firmwares; ls *.bin | sed 's/\.bin$$//')
+FIRMWARES:=$(shell cd orig-firmwares;curl -O https://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/r3600/miwifi_r3600_firmware_aa047_1.0.20.bin; ls *.bin | sed 's/\.bin$$//')
 
 FIRMWARE_SLUG?=txpwr
 
