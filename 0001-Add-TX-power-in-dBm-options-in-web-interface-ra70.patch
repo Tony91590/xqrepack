@@ -45,10 +45,10 @@ index 9a4ecf4..b65ee92 100644
  			iwpriv "$ifname" 11ngvhtintop 1
  		else
 -			max_power=30
-+			if [ "$channel" -ge 100 ]; then
-+				max_power=26
-+			else
-+				max_power=23
++			#if [ "$channel" -ge 100 ]; then
++			max_power=25
++			#else
++				#max_power=23
  		fi
  
  		config_get txpwr "$device" txpwr
