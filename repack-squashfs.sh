@@ -30,8 +30,8 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 >&2 echo "patching squashfs..."
 
 # create /opt dir
-mkdir "$FSDIR/opt"
-chmod 755 "$FSDIR/opt"
+#mkdir "$FSDIR/opt"
+#chmod 755 "$FSDIR/opt"
 
 # modify dropbear init
 sed -i 's/channel=.*/channel=release2/' "$FSDIR/etc/init.d/dropbear"
@@ -66,7 +66,7 @@ boot_hook_add preinit_main enable_dev_access
 NVRAM
 
 # modify root password
-sed -i "s@root:[^:]*@root:${ROOTPW}@" "$FSDIR/etc/shadow"
+#sed -i "s@root:[^:]*@root:${ROOTPW}@" "$FSDIR/etc/shadow"
 
 # stop phone-home in web UI
 #cat <<JS >> "$FSDIR/www/js/miwifi-monitor.js"
@@ -74,9 +74,9 @@ sed -i "s@root:[^:]*@root:${ROOTPW}@" "$FSDIR/etc/shadow"
 #JS
 
 # add xqflash tool into firmware for easy upgrades
-cp xqflash "$FSDIR/sbin"
-chmod 0755      "$FSDIR/sbin/xqflash"
-chown root:root "$FSDIR/sbin/xqflash"
+#cp xqflash "$FSDIR/sbin"
+#chmod 0755      "$FSDIR/sbin/xqflash"
+#chown root:root "$FSDIR/sbin/xqflash"
 
 # dont start crap services
 #for SVC in stat_points statisticsservice \
