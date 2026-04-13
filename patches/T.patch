@@ -12,20 +12,3 @@
  	option HARDWARE 'R3600'
  	# CFE ver
  	option UBOOT '1.0.2'
-From 878e851b486856d40a12892fe21e94d48d2284b3 Mon Sep 17 00:00:00 2001
-From: Alexander Georgievskiy <galeksandrp@gmail.com>
-Date: Sun, 20 Jun 2021 10:47:30 +0300
-Subject: [PATCH 1/3] Add TX power in dBm options in web interface
-
-remove comment from html templates
-
-In some cases, this broke the markup. For example when you enable Smart Connect option.
----
- lib/wifi/qcawificfg80211.sh                  | 12 ++-
- usr/lib/lua/luci/view/web/apsetting/wifi.htm | 60 +++++++++++++
- usr/lib/lua/luci/view/web/inc/wifi.html      | 60 +++++++++++++
- usr/lib/lua/luci/view/web/setting/wifi.htm   | 90 ++++++++++++++++++++
- 4 files changed, 221 insertions(+), 1 deletion(-)
-
-diff --git a/lib/wifi/qcawificfg80211.sh b/lib/wifi/qcawificfg80211.sh
-index d2c70a8..46e64d8 100644
