@@ -43,30 +43,6 @@
              </select>
          </span>
          <em class="t"></em>
-@@ -291,6 +297,11 @@
-                     <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-                     <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-                     <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                    {for (var i=0; i<=30; i++)}
-+                    <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
-+                        {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
-+                    </option>
-+                    {/for}
-                 </select>
-             </span>
-             <em class="t"></em>
-@@ -341,6 +350,11 @@
-                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                {for (var i=0; i<=30; i++)}
-+                <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
-+                    {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
-+                </option>
-+                {/for}
-             </select>
-         </span>
-         <em class="t"></em>
 --- a/usr/lib/lua/luci/view/web/inc/wifi.html
 +++ b/usr/lib/lua/luci/view/web/inc/wifi.html
 @@ -297,6 +297,11 @@
