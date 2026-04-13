@@ -1,0 +1,10 @@
+--- a/usr/share/xiaoqiang/xiaoqiang_version
++++ b/usr/share/xiaoqiang/xiaoqiang_version
+@@ -1,9 +1,9 @@
+ config core 'version'
+ 	# ROM ver
+-	option ROM '3.0.16'
++	option ROM '3.0.22'
+ 	# channel
+-	option CHANNEL 'release'
++	option CHANNEL 'release'
