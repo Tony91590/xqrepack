@@ -28,6 +28,9 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 >&2 echo "patching squashfs..."
 
+find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
+find patches -type f -name \*.orig -delete
+
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
