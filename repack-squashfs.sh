@@ -28,8 +28,8 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 >&2 echo "patching squashfs..."
 
-sed -i 's/countryie 0/countryie 1/' lib/wifi/qcawificfg80211.sh
-sed -i '/vap_contryie/d' lib/wifi/qcawificfg80211.sh
+sed -i 's/countryie 0/countryie 1/' "$FSDIR/lib/wifi/qcawificfg80211.sh"
+sed -i '/vap_contryie/d' "$FSDIR/lib/wifi/qcawificfg80211.sh"
 
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
