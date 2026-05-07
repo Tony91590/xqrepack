@@ -32,6 +32,7 @@
 -				max_power=13
 -			fi
 -		fi
++		# EU restrictions
 +		if [ "$bd_country_code" = "EU" ]; then
 +			if [ "$bdmode" = "24G" ]; then
 +				max_power=14
@@ -46,13 +47,13 @@
 +				max_power=13
 +			fi
 +		fi
-+		#miwifi: reduce 3db for Brazil band1
++		# Brazil band1 reduction
 +		if [ "$nv_country_code" = "BR" ]; then
 +			if [ "$bdmode" = "5G" -a "$channel" -le 48 ]; then
 +				max_power=13
 +			fi
 +		fi
-+		#miwifi: we use band1 txpower for wifi ap mode
++		# WiFi AP mode limitation
 +		netmode=`uci get xiaoqiang.common.NETMODE`
 +		if [ -n "$netmode" -a "$netmode" = "wifiapmode" -a "$bdmode" = "5G" ]; then
 +			max_power=16
