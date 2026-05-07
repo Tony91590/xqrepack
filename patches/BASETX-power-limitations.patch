@@ -32,7 +32,6 @@
 -				max_power=13
 -			fi
 -		fi
-
 +		# EU restrictions
 +		if [ "$bd_country_code" = "EU" ]; then
 +			if [ "$bdmode" = "24G" ]; then
@@ -44,29 +43,24 @@
 +					max_power=16
 +				fi
 +			fi
-+
 +			if [ "$ifname" = "wl2" ]; then
 +				max_power=13
 +			fi
 +		fi
-+
 +		# Brazil band1 reduction
 +		if [ "$nv_country_code" = "BR" ]; then
 +			if [ "$bdmode" = "5G" -a "$channel" -le 48 ]; then
 +				max_power=13
 +			fi
 +		fi
-+
 +		# WiFi AP mode limitation
 +		netmode=`uci get xiaoqiang.common.NETMODE`
 +		if [ -n "$netmode" -a "$netmode" = "wifiapmode" -a "$bdmode" = "5G" ]; then
 +			max_power=16
-+
 +			if [ "$nv_country_code" = "BR" ]; then
 +				max_power=13
 +			fi
 +		fi
-+
  		config_get txpwr "$device" txpwr
  		if [ "$txpwr" = "mid" ]; then
  			txpower=`expr $max_power - 1`
