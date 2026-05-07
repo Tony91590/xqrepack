@@ -63,4 +63,3 @@
 +		fi
  		config_get txpwr "$device" txpwr
  		if [ "$txpwr" = "mid" ]; then
- 			txpower=`expr $max_power - 1`
