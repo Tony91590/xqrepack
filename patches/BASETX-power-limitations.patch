@@ -32,7 +32,6 @@
 -				max_power=13
 -			fi
 -		fi
-+		# EU restrictions
 +		if [ "$bd_country_code" = "EU" ]; then
 +			if [ "$bdmode" = "24G" ]; then
 +				max_power=14
