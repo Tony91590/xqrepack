@@ -102,6 +102,8 @@ sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
 
 sed -i 's/country_code="SG"/country_code="FR"/g' $FSDIR/lib/wifi/qcawificfg80211.sh
 
+sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' fichier.conf
+
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
