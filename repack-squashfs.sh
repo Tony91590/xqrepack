@@ -104,22 +104,6 @@ sed -i "s/\$country_code/FR/g" $FSDIR/lib/wifi/qcawificfg80211.sh
 sed -i 's/country_code="SG"/country_code="FR"/g' $FSDIR/lib/wifi/qcawificfg80211.sh
 sed -i 's/156/250/g' $FSDIR/lib/wifi/qcawificfg80211.sh
 sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80211-linux
-cat << 'EOF' > '$FSDIR/etc/rc.local'
-# Put your custom commands here that should be executed once
-# the system init finished. By default this file does nothing.
-
-iw reg set FR
-for i in $(uci show wireless | grep "=wifi-iface" | cut -d. -f2 | cut -d= -f1); do
-    uci set wireless.$i.ieee80211k=1
-    uci set wireless.$i.ieee80211v=1
-    uci set wireless.$i.bss_transition=1
-done
-
-uci commit wireless
-wifi reload
-
-exit 0
-EOF
 
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
