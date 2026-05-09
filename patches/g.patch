@@ -41,8 +41,8 @@
  	option ssid	'$ssid'
  	option encryption none
 +	option ieee80211k '1'
-+    option ieee80211v '1'
-+    option bss_transition '1'
++	option ieee80211v '1'
++	option bss_transition '1'
  	option wpsdevicename 'XiaoMiRouter'
 
  EOF
