@@ -1,6 +1,6 @@
 --- a/lib/wifi/qcawificfg80211.sh
 +++ b/lib/wifi/qcawificfg80211.sh
-@@ -3672,7 +3672,7 @@
+@@ -3673,7 +3673,7 @@
 	reload=0
 	hw_mode_detect=0
 	avoid_load=0
