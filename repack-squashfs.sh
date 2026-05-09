@@ -102,7 +102,7 @@ sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
 
 sed -i "s/\$country_code/FR/g" $FSDIR/lib/wifi/qcawificfg80211.sh
 sed -i 's/country_code="SG"/country_code="FR"/g' $FSDIR/lib/wifi/qcawificfg80211.sh
-sed -i 's/\bsetCountryID[[:space:]]*156\b/setCountryID 250/g' $FSDIR/lib/wifi/qcawificfg80211.sh
+sed -i 's/156/250/g' $FSDIR/lib/wifi/qcawificfg80211.sh
 sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80211-linux
 sed -i '/exit 0/i \
 iw reg set FR\n\
