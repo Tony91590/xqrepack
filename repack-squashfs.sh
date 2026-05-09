@@ -106,6 +106,19 @@ sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
+cat > "$FSDIR/etc/init.d/regdom" <<'EOF'
+#!/bin/sh /etc/rc.common
+START=10
+
+start() {
+    iw reg set FR
+}
+EOF
+
+chmod +x "$FSDIR/etc/init.d/regdom"
+# enable regdom at boot via rc.d link
+ln -sf ../init.d/regdom "$FSDIR/etc/rc.d/S10regdom"
+
 rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
 
 >&2 echo "repacking squashfs..."
