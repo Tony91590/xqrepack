@@ -1,6 +1,6 @@
 --- a/etc/rc.local
 +++ b/etc/rc.local
-@@ -1,6 +1,18 @@
+@@ -1,6 +1,19 @@
 # Put your custom commands here that should be executed once
 # the system init finished. By default this file does nothing.
 
