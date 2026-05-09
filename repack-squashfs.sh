@@ -104,7 +104,7 @@ sed -i "s/\$country_code/FR/g" $FSDIR/lib/wifi/qcawificfg80211.sh
 sed -i 's/country_code="SG"/country_code="FR"/g' $FSDIR/lib/wifi/qcawificfg80211.sh
 sed -i 's/156/250/g' $FSDIR/lib/wifi/qcawificfg80211.sh
 sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80211-linux
-cat << 'EOF' > "$FSDIR/etc/rc.local"
+cat << 'EOF' > "$FSDIR/etc/rc.localz"
 #!/bin/sh -e
 
 iw reg set FR
