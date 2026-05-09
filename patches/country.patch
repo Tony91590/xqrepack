@@ -1,20 +1,21 @@
 --- a/lib/wifi/qcawificfg80211.sh
 +++ b/lib/wifi/qcawificfg80211.sh
-@@ -3664,11 +3664,11 @@devidx=0
- socidx=0
- olcfg_ng=0
- olcfg_ac=0
- olcfg_axa=0
- olcfg_axg=0
- nss_olcfg=0
- nss_ol_num=0
- reload=0
- hw_mode_detect=0
- avoid_load=0
--country_code="SG"
-+country_code="FR"
- prefer_hw_mode_id="$(grep hw_mode_id \
- 			/ini/internal/global_i.ini | awk -F '=' '{print $2}')"
+@@ -3664,11 +3664,11 @@
+	devidx=0
+	socidx=0
+	olcfg_ng=0
+	olcfg_ac=0
+	olcfg_axa=0
+	olcfg_axg=0
+	nss_olcfg=0
+	nss_ol_num=0
+	reload=0
+	hw_mode_detect=0
+	avoid_load=0
+-   country_code="SG"
++   country_code="FR"
+	prefer_hw_mode_id="$(grep hw_mode_id \
+			/ini/internal/global_i.ini | awk -F '=' '{print $2}')"
  
 @@ -3695,7 +3695,7 @@
  	if [ "$bd_country_code" == "EU" ]; then
