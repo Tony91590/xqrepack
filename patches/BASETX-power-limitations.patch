@@ -1,6 +1,6 @@
 --- a/lib/wifi/qcawificfg80211.sh
 +++ b/lib/wifi/qcawificfg80211.sh
-@@ -2977,34 +2977,17 @@ enable_qcawificfg80211() {
+@@ -2977,34 +2977,19 @@ enable_qcawificfg80211() {
  		else
  			max_power=30
  		fi
