@@ -1,7 +1,6 @@
 --- a/lib/wifi/qcawificfg80211.sh
 +++ b/lib/wifi/qcawificfg80211.sh
-@@ -3664,11 +3664,11 @@
- devidx=0
+@@ -3664,11 +3664,11 @@devidx=0
  socidx=0
  olcfg_ng=0
  olcfg_ac=0
