@@ -106,6 +106,7 @@ sed -i 's/156/250/g' $FSDIR/lib/wifi/qcawificfg80211.sh
 sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80211-linux
 sed -i '/exit 0/i iw reg set FR' $FSDIR/etc/rc.local
 sed -i '/iw reg set FR/a for i in $(uci show wireless | grep "=wifi-iface" | cut -d. -f2 | cut -d= -f1); do uci set wireless.$i.ieee80211k=1; uci set wireless.$i.ieee80211v=1; uci set wireless.$i.bss_transition=1; done; uci commit wireless; wifi reload' $FSDIR/etc/rc.local
+
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
