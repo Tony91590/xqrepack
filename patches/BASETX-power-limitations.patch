@@ -38,7 +38,7 @@
 +			else
 +				if [ "$channel" -ge 100 ]; then
 +					max_power=27
-+    elif [ "$channel" -ge 52 ] && [ "$channel" -le 64 ]; then
++				elif [ "$channel" -ge 52 ] && [ "$channel" -le 64 ]; then
 +					max_power=20
 +				else
 +					max_power=23
