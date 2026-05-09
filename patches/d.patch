@@ -1,0 +1,18 @@
+--- a/etc/rc.local
++++ b/etc/rc.local
+@@ -1,4 +1,17 @@
+ # Put your custom commands here that should be executed once
+ # the system init finished. By default this file does nothing.
+
++iw reg set FR
++
++for i in $(uci show wireless 2>/dev/null | grep "=wifi-iface" | cut -d. -f2 | cut -d= -f1); do
++    uci set wireless.$i.ieee80211k=1
++    uci set wireless.$i.ieee80211v=1
++    uci set wireless.$i.bss_transition=1
++done
++
++uci commit wireless
++wifi reload
++
+ exit 0
