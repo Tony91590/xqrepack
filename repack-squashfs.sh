@@ -104,6 +104,8 @@ sed -i 's/country_code="SG"/country_code="FR"/g' $FSDIR/lib/wifi/qcawificfg80211
 
 sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80211-linux
 
+sed -i "s/option country[[:space:]]*'\$country_code'/option country\t'FR'/g" $FSDIR/lib/wifi/qcawificfg80211.sh
+
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
