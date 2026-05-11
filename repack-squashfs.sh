@@ -106,6 +106,14 @@ sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
+uci set wireless.@wifi-iface[0].bss_transition='1'
+uci set wireless.@wifi-iface[0].ieee80211k='1'
+uci set wireless.@wifi-iface[0].ieee80211v='1'
+uci set wireless.@wifi-iface[1].bss_transition='1'
+uci set wireless.@wifi-iface[1].ieee80211k='1'
+uci set wireless.@wifi-iface[1].ieee80211v='1'
+uci commit
+
 (sleep 60;iwconfig wl0 txpower 23;iwconfig wl1 txpower 20)&
 
 cat > "$FSDIR/etc/init.d/regdom" <<'EOF'
