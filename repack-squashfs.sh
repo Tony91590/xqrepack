@@ -124,17 +124,10 @@ cat > /etc/init.d/regdom <<'EOF'
 # Copyright (C) 2007 OpenWrt.org
 
 START=10
-STOP=15
 
 start() {
         echo start
         # commands to launch application
-        iw reg set DE
-}
-
-stop() {
-        echo stop
-        # commands to kill application
         iw reg set DE
 }
 EOF
