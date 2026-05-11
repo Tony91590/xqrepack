@@ -124,13 +124,10 @@ cat > /etc/init.d/regdom <<'EOF'
 START=10
 
 start() {
-        echo start
         iw reg set FR
 }
 EOF
-
 chmod +x /etc/init.d/regdom
-# enable regdom at boot via rc.d link
 /etc/init.d/regdom enable
 
 rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
