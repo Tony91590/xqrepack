@@ -120,6 +120,7 @@ chmod +x "$FSDIR/etc/init.d/regdom"
 ln -sf ../init.d/regdom "$FSDIR/etc/rc.d/S10regdom"
 
 rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
+rm -f $FSDIR/etc/config/xqled.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
