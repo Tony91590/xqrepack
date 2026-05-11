@@ -106,6 +106,8 @@ sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
+sed -i 's/channel=.*/channel="debug"/g' /etc/init.d/dropbear /etc/init.d/dropbear start
+
 uci set wireless.wifi0.country='FR'
 uci set wireless.wifi1.country='FR'
 uci set wireless.@wifi-iface[0].bss_transition='1'
