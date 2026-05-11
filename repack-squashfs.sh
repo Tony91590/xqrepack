@@ -120,11 +120,10 @@ uci commit
 
 cat > /etc/init.d/regdom <<'EOF'
 #!/bin/sh /etc/rc.common
-
 START=10
 
 start() {
-        iw reg set FR
+    iw reg set FR
 }
 EOF
 chmod +x /etc/init.d/regdom
