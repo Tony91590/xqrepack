@@ -120,15 +120,12 @@ uci commit
 
 cat > /etc/init.d/regdom <<'EOF'
 #!/bin/sh /etc/rc.common
-# Example script
-# Copyright (C) 2007 OpenWrt.org
 
 START=10
 
 start() {
         echo start
-        # commands to launch application
-        iw reg set DE
+        iw reg set FR
 }
 EOF
 
