@@ -118,7 +118,7 @@ uci commit
 
 (sleep 60;iwconfig wl0 txpower 23;iwconfig wl1 txpower 20)&
 
-cat > "$FSDIR/etc/init.d/regdom" <<'EOF'
+cat > /etc/init.d/regdom <<'EOF'
 #!/bin/sh /etc/rc.common
 # Example script
 # Copyright (C) 2007 OpenWrt.org
@@ -139,9 +139,9 @@ stop() {
 }
 EOF
 
-chmod +x "$FSDIR/etc/init.d/regdom"
+chmod +x /etc/init.d/regdom
 # enable regdom at boot via rc.d link
-ln -sf ../init.d/regdom "$FSDIR/etc/rc.d/S10regdom"
+/etc/init.d/regdom enable
 
 rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
 
