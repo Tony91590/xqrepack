@@ -108,21 +108,29 @@ find patches -type f -name \*.orig -delete
 
 cat > "$FSDIR/etc/init.d/regdom" <<'EOF'
 #!/bin/sh /etc/rc.common
+
 START=10
-nv_country_code=`nvram get CountryCode`
 
 start() {
-    iw reg set $nv_country_code
-	uci set wireless.wifi0.country='$nv_country_code'
-    uci set wireless.wifi1.country='$nv_country_code'
-	uci set wireless.@wifi-iface[0].bss_transition='1'
-uci set wireless.@wifi-iface[0].ieee80211k='1'
-uci set wireless.@wifi-iface[0].ieee80211v='1'
-uci set wireless.@wifi-iface[1].bss_transition='1'
-uci set wireless.@wifi-iface[1].ieee80211k='1'
-uci set wireless.@wifi-iface[1].ieee80211v='1'
-uci commit
-    uci commit
+    nv_country_code="$(nvram get CountryCode)"
+
+    [ "$nv_country_code" = "EU" ] && nv_country_code="SG"
+
+    iw reg set "$nv_country_code"
+
+    uci set wireless.wifi0.country="$nv_country_code"
+    uci set wireless.wifi1.country="$nv_country_code"
+
+    uci set wireless.@wifi-iface[0].bss_transition='1'
+    uci set wireless.@wifi-iface[0].ieee80211k='1'
+    uci set wireless.@wifi-iface[0].ieee80211v='1'
+
+    uci set wireless.@wifi-iface[1].bss_transition='1'
+    uci set wireless.@wifi-iface[1].ieee80211k='1'
+    uci set wireless.@wifi-iface[1].ieee80211v='1'
+
+    uci commit wireless
+    wifi reload
 }
 EOF
 
