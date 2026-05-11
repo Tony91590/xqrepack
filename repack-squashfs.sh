@@ -120,10 +120,22 @@ uci commit
 
 cat > "$FSDIR/etc/init.d/regdom" <<'EOF'
 #!/bin/sh /etc/rc.common
+# Example script
+# Copyright (C) 2007 OpenWrt.org
+
 START=10
+STOP=15
 
 start() {
-    iw reg set FR
+        echo start
+        # commands to launch application
+        iw reg set DE
+}
+
+stop() {
+        echo stop
+        # commands to kill application
+        iw reg set DE
 }
 EOF
 
