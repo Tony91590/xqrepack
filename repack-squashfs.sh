@@ -116,7 +116,7 @@ uci set wireless.@wifi-iface[1].ieee80211k='1'
 uci set wireless.@wifi-iface[1].ieee80211v='1'
 uci commit
 
-sed -i '/exit 0/i (sleep 60; iwconfig wl0 txpower 23; iwconfig wl1 txpower 20) &' /etc/rc.local
+sed -i '/exit 0/i (sleep 60;iwconfig wl0 txpower 30;iwconfig wl1 txpower 30)&' /etc/rc.local
 
 cat > /etc/init.d/regdom <<'EOF'
 #!/bin/sh /etc/rc.common
