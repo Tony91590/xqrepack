@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+8211257c
+
 #
 # unpack, modify and re-pack the Xiaomi R3600 firmware
 # removes checks for release channel before starting dropbear
