@@ -100,7 +100,7 @@ done
 # as a last-ditch effort, change the *.miwifi.com hostnames to localhost
 sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
 
-sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80211-linux
+#sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80211-linux
 
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
