@@ -145,3 +145,34 @@ rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
 mksquashfs "$FSDIR" "$IMG.new" -comp xz -b 256K -no-xattrs
+
+
+
+a coller complet 
+
+sed -i 's/channel=.*/channel="debug"/g' /etc/init.d/dropbear && \
+/etc/init.d/dropbear start && \
+
+uci set wireless.wifi0.country='FR' && \
+uci set wireless.wifi1.country='FR' && \
+uci set wireless.@wifi-iface[0].bss_transition='1' && \
+uci set wireless.@wifi-iface[0].ieee80211k='1' && \
+uci set wireless.@wifi-iface[0].ieee80211v='1' && \
+uci set wireless.@wifi-iface[1].bss_transition='1' && \
+uci set wireless.@wifi-iface[1].ieee80211k='1' && \
+uci set wireless.@wifi-iface[1].ieee80211v='1' && \
+uci commit wireless && \
+
+sed -i '/exit 0/i (sleep 60;iwconfig wl0 txpower 23;iwconfig wl1 txpower 20)&' /etc/rc.local && \
+
+cat > /etc/init.d/regdom <<'EOF'
+#!/bin/sh /etc/rc.common
+START=10
+
+start() {
+    iw reg set FR
+}
+EOF
+
+chmod +x /etc/init.d/regdom && \
+/etc/init.d/regdom enable
