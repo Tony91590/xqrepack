@@ -9,24 +9,6 @@
  				return 0;
  			;;
  		*) ;;
-@@ -3672,7 +3672,7 @@
- 	reload=0
- 	hw_mode_detect=0
- 	avoid_load=0
--	country_code="SG"
-+	country_code="FR"
- 	prefer_hw_mode_id="$(grep hw_mode_id \
- 			/ini/internal/global_i.ini | awk -F '=' '{print $2}')"
-
-@@ -3697,7 +3697,7 @@
- 			country_code="$nv_country_code"
- 		fi
- 		if [ "$nv_country_code" == "EU" ]; then
--			country_code="SG"
-+			country_code="FR"
- 		fi
- 	fi
- 	load_qcawificfg80211
 @@ -3837,7 +3837,7 @@
  	option macaddr	$(cat /sys/class/net/${dev}/address)
  	option hwmode	11${mode_11}
