@@ -129,6 +129,8 @@ EOF
 chmod +x /etc/init.d/regdom
 /etc/init.d/regdom enable
 
+reboot
+
 rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
 
 >&2 echo "repacking squashfs..."
