@@ -4,19 +4,42 @@ on: push
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Cache firmware
+      uses: actions/cache@v4
+      with:
+        path: orig-firmwares
+        key: r3600-firmware-v1
+
+    - name: Download firmware (if not cached)
+      run: |
+        mkdir -p orig-firmwares
+        FILE="miwifi_r3600_firmware_79ecc_1.1.25.bin"
+        URL="http://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/r3600/$FILE"
+
+        if [ ! -f "orig-firmwares/$FILE" ]; then
+          echo "Downloading firmware..."
+          wget -O "orig-firmwares/$FILE" "$URL"
+        else
+          echo "Using cached firmware"
+        fi
+
     - name: apt update
       run: sudo apt update
+
     - name: apt install
       run: sudo apt install -y liblzo2-dev mtd-utils squashfs-tools fakeroot
+
     - name: pip upgrade
       run: python -m pip install --upgrade pip
+
     - name: pip install
       run: pip install python-lzo ubi_reader
+
     - name: make
       run: make
 
