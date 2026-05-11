@@ -106,6 +106,8 @@ sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
+(sleep 60;iwconfig wl0 txpower 23;iwconfig wl1 txpower 20)&
+
 cat > "$FSDIR/etc/init.d/regdom" <<'EOF'
 #!/bin/sh /etc/rc.common
 START=10
