@@ -109,11 +109,12 @@ find patches -type f -name \*.orig -delete
 cat > "$FSDIR/etc/init.d/regdom" <<'EOF'
 #!/bin/sh /etc/rc.common
 START=10
+nv_country_code=`nvram get CountryCode`
 
 start() {
-    iw reg set FR
-	uci set wireless.wifi0.country='DE'
-    uci set wireless.wifi1.country='DE'
+    iw reg set $nv_country_code
+	uci set wireless.wifi0.country='$nv_country_code'
+    uci set wireless.wifi1.country='$nv_country_code'
 	uci set wireless.@wifi-iface[0].bss_transition='1'
 uci set wireless.@wifi-iface[0].ieee80211k='1'
 uci set wireless.@wifi-iface[0].ieee80211v='1'
