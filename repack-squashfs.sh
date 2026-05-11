@@ -112,6 +112,16 @@ START=10
 
 start() {
     iw reg set FR
+	uci set wireless.wifi0.country='DE'
+    uci set wireless.wifi1.country='DE'
+	uci set wireless.@wifi-iface[0].bss_transition='1'
+uci set wireless.@wifi-iface[0].ieee80211k='1'
+uci set wireless.@wifi-iface[0].ieee80211v='1'
+uci set wireless.@wifi-iface[1].bss_transition='1'
+uci set wireless.@wifi-iface[1].ieee80211k='1'
+uci set wireless.@wifi-iface[1].ieee80211v='1'
+uci commit
+    uci commit
 }
 EOF
 
