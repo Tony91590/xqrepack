@@ -148,25 +148,3 @@ chmod +x /etc/init.d/wifi-tx-reg
 
 reboot
 
-
-
-en trst
-
-
-#!/bin/sh /etc/rc.common
-START=99
-
-REGDOM="FR"
-TXPOWER_WL0=23
-TXPOWER_WL1=20
-
-start() {
-    iw reg set "$REGDOM"
-
-    wifi reload
-    sleep 10
-
-    iwconfig wl0 txpower "$TXPOWER_WL0"
-    iwconfig wl1 txpower "$TXPOWER_WL1"
-}
-
