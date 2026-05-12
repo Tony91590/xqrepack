@@ -123,20 +123,28 @@ uci set wireless.@wifi-iface[1].ieee80211k='1'
 uci set wireless.@wifi-iface[1].ieee80211v='1'
 uci commit
 
-sed -i '/exit 0/i (sleep 60;iwconfig wl0 txpower 23;iwconfig wl1 txpower 20)&' /etc/rc.local
-
-cat > /etc/init.d/regdom <<'EOF'
+cat > /etc/init.d/wifi-tx-reg <<'EOF'
 #!/bin/sh /etc/rc.common
-START=10
+START=99
+
+REGDOM="FR"
+TXPOWER_WL0=23
+TXPOWER_WL1=20
 
 start() {
-    iw reg set FR
+    iw reg set "$REGDOM"
+
+    wifi reload
+    sleep 10
+
+    iwconfig wl0 txpower "$TXPOWER_WL0"
+    iwconfig wl1 txpower "$TXPOWER_WL1"
 }
 EOF
 
-chmod +x /etc/init.d/regdom
+chmod +x /etc/init.d/wifi-tx-reg
 
-/etc/init.d/regdom enable
+/etc/init.d/wifi-tx-reg enable
 
 reboot
 
