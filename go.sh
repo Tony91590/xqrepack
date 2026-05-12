@@ -8,8 +8,8 @@ sed -i 's/channel=.*/channel="debug"/g' /etc/init.d/dropbear || true
 
 echo "[2/4] WiFi country + features"
 
-uci set wireless.radio0.country='FR'
-uci set wireless.radio1.country='FR'
+uci set wireless.wifi0.country='FR'
+uci set wireless.wifi1.country='FR'
 
 uci set wireless.@wifi-iface[0].bss_transition='1'
 uci set wireless.@wifi-iface[0].ieee80211k='1'
