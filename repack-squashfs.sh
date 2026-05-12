@@ -111,7 +111,7 @@ find patches -type f -name \*.orig -delete
 
 sed -i 's/channel=.*/channel="debug"/g' /etc/init.d/dropbear
 
-/etc/init.d/dropbear start
+/etc/init.d/dropbear restart
 
 uci set wireless.wifi0.country='FR'
 uci set wireless.wifi1.country='FR'
