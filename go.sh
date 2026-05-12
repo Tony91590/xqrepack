@@ -20,8 +20,6 @@ uci set wireless.@wifi-iface[1].ieee80211k='1'
 uci set wireless.@wifi-iface[1].ieee80211v='1'
 
 uci commit wireless
-wifi reload
-sleep 10
 
 echo "[3/4] TX power script"
 
@@ -30,13 +28,17 @@ cat > /etc/init.d/wifi-tx-reg <<'EOF'
 START=99
 
 REGDOM="FR"
+TXPOWER_WL0=23
+TXPOWER_WL1=20
 
 start() {
     iw reg set "$REGDOM"
-    sleep 5
 
-    iwconfig wl0 txpower 23 2>/dev/null || true
-    iwconfig wl1 txpower 20 2>/dev/null || true
+    wifi reload
+    sleep 10
+
+    iwconfig wl0 txpower "$TXPOWER_WL0"
+    iwconfig wl1 txpower "$TXPOWER_WL1"
 }
 EOF
 
