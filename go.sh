@@ -3,8 +3,8 @@
 set -e
 
 echo "[1/4] Dropbear"
-sed -i 's/channel=.*/channel="debug"/g' /etc/init.d/dropbear || true
-/etc/init.d/dropbear restart || true
+sed -i 's/channel=.*/channel="debug"/g' /etc/init.d/dropbear
+/etc/init.d/dropbear restart
 
 echo "[2/4] WiFi country + features"
 
@@ -46,7 +46,7 @@ chmod +x /etc/init.d/wifi-tx-reg
 /etc/init.d/wifi-tx-reg enable
 
 echo "[4/4] start service + reboot"
- /etc/init.d/wifi-tx-reg start || true
+ /etc/init.d/wifi-tx-reg start
 
 sleep 20
 reboot
