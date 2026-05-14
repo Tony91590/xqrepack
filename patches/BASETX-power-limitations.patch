@@ -37,3 +37,18 @@ index ae2c09e..9b1d16a 100644
  		config_get txpwr "$device" txpwr
  		if [ "$txpwr" = "mid" ]; then
  			txpower=`expr $max_power - 1`
+    @@ -3692,14 +3692,6 @@
+ 			esac
+ 		done
+ 	fi
+-	if [ "$bd_country_code" == "EU" ]; then
+-		if [ -n "$nv_country_code" ]; then
+-			country_code="$nv_country_code"
+-		fi
+-		if [ "$nv_country_code" == "EU" ]; then
+-			country_code="SG"
+-		fi
+-	fi
+ 	load_qcawificfg80211
+ 	config_load wireless
+ 	local board_name
