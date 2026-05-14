@@ -9,12 +9,11 @@
  				return 0;
  			;;
  		*) ;;
-@@ -3672,7 +3672,7 @@
+@@ -3672,7 +3672,6 @@
  	reload=0
  	hw_mode_detect=0
  	avoid_load=0
 -	country_code="SG"
-+	country_code="FR"
  	prefer_hw_mode_id="$(grep hw_mode_id \
  			/ini/internal/global_i.ini | awk -F '=' '{print $2}')"
 
