@@ -1,3 +1,7 @@
+
+sed -i '/exit 0/i (sleep 60;iwconfig wl0 txpower 23;iwconfig wl1 txpower 20)&' /etc/rc.local
+
+
 #!/usr/bin/env bash
 
 8211257c
