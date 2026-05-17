@@ -100,27 +100,24 @@ done
 # as a last-ditch effort, change the *.miwifi.com hostnames to localhost
 sed -i 's@\w\+.miwifi.com@localhost@g' $FSDIR/etc/config/miwifi
 
-#sed -i 's/cfg80211/cfg80211 ieee80211_regdom=FR/g' $FSDIR/etc/modules.d/30-cfg80211-linux
+# get hardware name
+HWNAME=`sed -n "/option\s\+HARDWARE/ s/.*'\(.*\)'/\1/g p" $FSDIR/usr/share/xiaoqiang/xiaoqiang_version`
+[ -n "$HWNAME" ] && echo "detected hw $HWNAME" || echo "[WARN] cant find hw name in firmware"
 
-# apply patch from xqrepack repository
-find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
-find patches -type f -name \*.orig -delete
+# apply hw-specific patches
+PATCHES=
+[ -n "$HWNAME" ] && [ -d "patches-$HWNAME" ] && PATCHES=patches-$HWNAME/*.patch
 
-cat > "$FSDIR/etc/init.d/regdom" <<'EOF'
-#!/bin/sh /etc/rc.common
-START=10
+# generic patches
+[ -d patches ] && PATCHES="$PATCHES patches/*.patch"
 
-start() {
-    iw reg set FR
-}
-EOF
+# apply patches
+for p in $PATCHES; do
+	>&2 echo "applying patch $p..."
+	patch -d "$FSDIR" -s -p1 < $p
 
-chmod +x "$FSDIR/etc/init.d/regdom"
-# enable regdom at boot via rc.d link
-ln -sf ../init.d/regdom "$FSDIR/etc/rc.d/S10regdom"
-
-rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
-rm -f $FSDIR/etc/config/xqled.orig
+	[ $? -ne 0 ] && { echo "patch $p didnt apply cleanly - aborting."; exit 1; }
+done
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
