@@ -36,16 +36,3 @@
  		local eth_info = ""
  		if not has_switch then
  			eth_info = luci.sys.exec("/sbin/ethinfo")
-@@ -702,10 +702,10 @@
- 				);
- 
- 			if (e = document.getElementById('memfree'))
- 				e.innerHTML = progressbar(
--					(info.memory.free / 1048576) + " <%:MB%>",
--					(info.memory.total / 1048576) + " <%:MB%>"
-+					Math.floor(info.memory.free / 1048576) + " <%:MB%>",
-+					Math.floor(info.memory.total / 1048576) + " <%:MB%>"
- 				);
- 
- 			if (e = document.getElementById('membuff'))
- 				e.innerHTML = progressbar(
