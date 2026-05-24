@@ -33,11 +33,7 @@ TXPOWER_WL1=20
 
 start() {
     iw reg set "$REGDOM"
-    
-    sleep 60
-
-    iwconfig wl0 txpower "$TXPOWER_WL0"
-    iwconfig wl1 txpower "$TXPOWER_WL1"
+    (sleep 60; iwconfig wl0 txpower "$TXPOWER_WL0"; iwconfig wl1 txpower "$TXPOWER_WL1")&
 }
 EOF
 
