@@ -35,7 +35,7 @@ start() {
     iw reg set "$REGDOM"
 
     wifi reload
-    sleep 10
+    sleep 60
 
     iwconfig wl0 txpower "$TXPOWER_WL0"
     iwconfig wl1 txpower "$TXPOWER_WL1"
