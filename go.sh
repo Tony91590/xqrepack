@@ -47,5 +47,4 @@ chmod +x /etc/init.d/wifi-tx-reg
 echo "[4/4] start service + reboot"
  /etc/init.d/wifi-tx-reg start
 
-sleep 20
 reboot
