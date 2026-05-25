@@ -121,7 +121,7 @@ mkdir -p "$FSDIR/etc/rc.d"
 
 if [ -f "$FSDIR/etc/init.d/miniupnpd" ]; then
     ln -sf ../init.d/miniupnpd \
-        "$FSDIR/etc/rc.d/S95miniupnpd"
+        "$FSDIR/etc/rc.d/S94miniupnpd"
 fi
 
 #
