@@ -125,17 +125,6 @@ if [ -f "$FSDIR/etc/init.d/miniupnpd" ]; then
 fi
 
 #
-# patch dropbear restrictions
-#
-
-echo "[+] enabling dropbear..."
-
-if [ -f "$FSDIR/etc/init.d/dropbear" ]; then
-    sed -i \
-        's/release/debug/g' \
-        "$FSDIR/etc/init.d/dropbear" || true
-fi
-
 #
 # repack
 #
