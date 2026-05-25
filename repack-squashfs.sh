@@ -78,7 +78,30 @@ rm -rf "$FSDIR/usr/share/miniupnpd"
 
 echo "[+] installing replacement miniupnpd..."
 
-opkg install --force-reinstall --root="$FSDIR" "$NEWIPK"
+tar xf "$NEWIPK" -C "$TMPIPK"
+
+DATA=$(find "$TMPIPK" -name "data.tar.*" | head -n1)
+
+[ -n "$DATA" ] || {
+    echo "invalid ipk"
+    exit 1
+}
+
+case "$DATA" in
+    *.gz)
+        tar xzf "$DATA" -C "$FSDIR"
+        ;;
+    *.xz)
+        tar xJf "$DATA" -C "$FSDIR"
+        ;;
+    *.zst)
+        tar --zstd -xf "$DATA" -C "$FSDIR"
+        ;;
+    *)
+        echo "unsupported ipk compression"
+        exit 1
+        ;;
+esac
 
 #
 # permissions
