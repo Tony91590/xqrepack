@@ -2,7 +2,6 @@
 
 set -e
 
-echo " Dropbear"
 sed -i 's/channel=.*/channel="debug"/g' /etc/init.d/dropbear
 /etc/init.d/dropbear restart
 
