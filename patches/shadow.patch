@@ -1,0 +1,8 @@
+--- a/etc/shadow
++++ b/etc/shadow
+@@ -1,4 +1,4 @@
+-root:$1$MULfKgY6$rdJYoUcznNYSPtoW5M5I3/:18191:0:99999:7:::
++root::0:0:99999:7:::
+ daemon:*:0:0:99999:7:::
+ ftp:*:0:0:99999:7:::
+ network:*:0:0:99999:7:::
