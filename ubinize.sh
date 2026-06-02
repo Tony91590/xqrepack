@@ -6,7 +6,7 @@ set -e
 # =========================
 KERNEL="$1"
 ROOTFS="$2"
-OUTPUT="${3:-r3600-firmware.bin}"
+OUTPUT="${3:-r3600-raw-img.bin}"
 
 # =========================
 # CHECKS
