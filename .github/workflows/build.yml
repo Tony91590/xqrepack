@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Cache firmware
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: orig-firmwares
         key: r3600-firmware-v1
@@ -43,7 +43,7 @@ jobs:
     - name: make
       run: make
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v6
       with:
         name: miwifi_r3600_firmware_79ecc_1.1.25_SSH.bin
         path: miwifi_r3600_firmware_79ecc_1.1.25_SSH.bin
