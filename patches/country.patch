@@ -1,6 +1,6 @@
 --- a/lib/wifi/qcawificfg80211.sh
 +++ b/lib/wifi/qcawificfg80211.sh
-@@ -2020,14 +2020,11 @@
+@@ -2020,14 +2020,14 @@
  
  		config_get bintval "$vif" bintval
  		[ -n "$bintval" ] && "$device_if" "$ifname" bintval "$bintval"
@@ -11,6 +11,9 @@
 -
 -		config_get_bool vap_contryie "$vif" vap_contryie 0
 -		[ -n "$vap_contryie" ] && "$device_if" "$ifname" vap_contryie "$vap_contryie"
++
++		config_get_bool vap_contryie "$vif" vap_contryie 1
++		[ -n "$vap_contryie" ] && "$device_if" "$ifname" vap_contryie "$vap_contryie"
 
  		config_get ppdu_duration "$device" ppdu_duration
  		[ -n "$ppdu_duration" ] && "$device_if" "$phy" ppdu_duration "${ppdu_duration}"
