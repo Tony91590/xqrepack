@@ -7,8 +7,8 @@
 
 set -e
 
-KERNEL=kernel.1.ubi
-ROOTFS=root.2.ubi.new
+KERNEL=$1
+ROOTFS=$2
 OUTPUT=r3600-raw-img.bin
 
 # check for ubinize
