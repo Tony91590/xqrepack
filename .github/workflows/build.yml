@@ -1,4 +1,4 @@
-name: CI  
+name: CI
 
 on: push
 
@@ -18,10 +18,9 @@ jobs:
     - name: pip install
       run: pip install python-lzo ubi_reader
     - name: make
-      run: sudo ./repack-squashfs.sh
-    - name: make
-      run: sudo ./ubinize.sh
+      run: make
+
     - uses: actions/upload-artifact@v4
       with:
-        name: r3600-raw-img.bin
-        path: r3600-raw-img.bin
+        name: miwifi_r3600_all_6510e_3.0.22_INT_SSH.bin
+        path: miwifi_r3600_all_6510e_3.0.22_INT_SSH.bin
