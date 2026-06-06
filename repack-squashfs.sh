@@ -1,68 +1,33 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
-# Xiaomi R3600 firmware patcher
-# - unpack squashfs
-# - replace miniupnpd package
-# - enable dropbear
-# - repack squashfs
+# unpack, modify and re-pack the Xiaomi R3600 firmware
+# removes checks for release channel before starting dropbear
 #
+# 2020.07.20  darell tan
+# 
 
 set -e
 
-IMG="$1"
-
+IMG=$1
 NEWIPK="miniupnpd_2.0.20170421-3_aarch64_cortex-a53_neon-vfpv4.ipk"
 
-#
-# checks
-#
+[ -e "$IMG" ] || { echo "rootfs img not found $IMG"; exit 1; }
 
-[ -f "$IMG" ] || {
-    echo "missing firmware image: $IMG"
-    exit 1
-}
+# verify programs exist
+command -v unsquashfs &>/dev/null || { echo "install unsquashfs"; exit 1; }
+mksquashfs -version >/dev/null || { echo "install mksquashfs"; exit 1; }
 
-[ -f "$NEWIPK" ] || {
-    echo "missing ipk: $NEWIPK"
-    exit 1
-}
+FSDIR=`mktemp -d /tmp/resquash-rootfs.XXXXX`
+trap "rm -rf $FSDIR" EXIT
 
-command -v unsquashfs >/dev/null 2>&1 || {
-    echo "install squashfs-tools"
-    exit 1
-}
+# test mknod privileges
+mknod "$FSDIR/foo" c 0 0 2>/dev/null || { echo "need to be run with fakeroot"; exit 1; }
+rm -f "$FSDIR/foo"
 
-command -v mksquashfs >/dev/null 2>&1 || {
-    echo "install squashfs-tools"
-    exit 1
-}
-
-FSDIR=$(mktemp -d /tmp/r3600-rootfs.XXXXXX)
-TMPIPK=$(mktemp -d /tmp/r3600-ipk.XXXXXX)
-
-trap 'rm -rf "$FSDIR" "$TMPIPK"' EXIT
-
-#
-# verify fakeroot/root
-#
-
-mknod "$FSDIR/test" c 0 0 2>/dev/null || {
-    echo "run with fakeroot"
-    exit 1
-}
-
-rm -f "$FSDIR/test"
-
-#
-# unpack
-#
-
-echo "[+] unpacking squashfs..."
+>&2 echo "unpacking squashfs..."
 unsquashfs -f -d "$FSDIR" "$IMG"
 
-#
-# remove existing miniupnpd
-#
+>&2 echo "patching squashfs..."
 
 echo "[+] removing stock miniupnpd..."
 
@@ -124,20 +89,7 @@ if [ -f "$FSDIR/etc/init.d/miniupnpd" ]; then
         "$FSDIR/etc/rc.d/S94miniupnpd"
 fi
 
-#
-#
-# repack
-#
 
-echo "[+] rebuilding squashfs..."
-
+>&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
-
-mksquashfs "$FSDIR" "$IMG.new" \
-    -noappend \
-    -b 256k \
-    -comp xz
-
-echo
-echo "[+] DONE"
-echo "[+] output: $IMG.new"
+mksquashfs "$FSDIR" "$IMG.new" -comp xz -b 256K -no-xattrs
