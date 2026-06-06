@@ -9,7 +9,7 @@
 
 set -e
 
-IMG="root.2.ubi"
+IMG="$1"
 
 NEWIPK="miniupnpd_2.0.20170421-3_aarch64_cortex-a53_neon-vfpv4.ipk"
 
