@@ -130,49 +130,6 @@
              </select>
          </span>
          <em class="t"></em>
-@@ -219,10 +228,19 @@
-     <div class="form-item-select">
-         <label class="k"><%:信号强度%></label>
-         <span class="v">
--            <select name="txpwr" class="beautify txpwr">
-+            <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                {for (var i=0; i<=30; i++)}
-+                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                {/for}
-+                {if ($txpwr == "max")}
-                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                {/if}
-+                {if ($txpwr == "mid")}
-                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                {/if}
-+                {if ($txpwr == "min")}
-                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                {/if}
-             </select>
-         </span>
-         <em class="t"></em>
-@@ -286,11 +304,19 @@
-         <div class="form-item-select">
-             <label class="k"><%:信号强度%></label>
-             <span class="v">
--
--                <select name="txpwr" class="beautify txpwr" >
-+                <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                    {for (var i=0; i<=30; i++)}
-+                    <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                    {/for}
-+                    {if ($txpwr == "max")}
-                     <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                    {/if}
-+                    {if ($txpwr == "mid")}
-                     <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                    {/if}
-+                    {if ($txpwr == "min")}
-                     <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                    {/if}
-                 </select>
-             </span>
-             <em class="t"></em>
 @@ -336,11 +362,19 @@
      <div class="form-item-select">
          <label class="k"><%:信号强度%></label>
