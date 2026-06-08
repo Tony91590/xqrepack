@@ -33,6 +33,7 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
+rm -f $FSDIR/etc/init.d/dropbear.orig
 rm -f $FSDIR/lib/wifi/qcawificfg80211.sh.orig
 rm -f $FSDIR/usr/lib/lua/luci/view/web/apsetting/wifi.htm.orig
 rm -f $FSDIR/usr/lib/lua/luci/view/web/inc/wifi.html.orig
