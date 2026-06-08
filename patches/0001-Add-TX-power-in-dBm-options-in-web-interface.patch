@@ -1,206 +1,133 @@
---- a/usr/lib/lua/luci/view/web/inc/wifi.html
-+++ b/usr/lib/lua/luci/view/web/inc/wifi.html
-@@ -293,10 +293,19 @@
-     <div class="form-item-select">
-         <label class="k"><%:信号强度%></label>
-         <span class="v">
--            <select name="txpwr" class="beautify txpwr">
-+            <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                {for (var i=0; i<=30; i++)}
-+                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                {/for}
-+                {if ($txpwr == "max")}
+--- a/lib/wifi/qcawificfg80211.sh
++++ b/lib/wifi/qcawificfg80211.sh
+@@ -2986,7 +2986,15 @@ enable_qcawificfg80211() {
+ 		fi
+ 
+ 		config_get txpwr "$device" txpwr
+-		if [ "$txpwr" = "mid" ]; then
++		txpwr_is_set_in_dbm=0
++		case "$txpwr" in
++			dbm*)
++				txpwr_is_set_in_dbm=1
++				;;
++		esac
++		if [ $txpwr_is_set_in_dbm == 1 ]; then
++			txpower="${txpwr#dbm}"
++		elif [ "$txpwr" = "mid" ]; then
+ 			txpower=`expr $max_power - 1`
+ 		elif [ "$txpwr" = "min" ]; then
+ 			txpower=`expr $max_power - 3`
+--- a/usr/lib/lua/luci/view/web/apsetting/wifi.htm
++++ b/usr/lib/lua/luci/view/web/apsetting/wifi.htm
+@@ -174,6 +174,11 @@
                  <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                {/if}
-+                {if ($txpwr == "mid")}
                  <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                {/if}
-+                {if ($txpwr == "min")}
                  <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                {/if}
++                {for (var i=0; i<=30; i++)}
++                <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
++                    {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
++                </option>
++                {/for}
              </select>
          </span>
          <em class="t"></em>
-@@ -417,10 +426,19 @@
-     <div class="form-item-select">
-         <label class="k"><%:信号强度%></label>
-         <span class="v">
--            <select name="txpwr" class="beautify txpwr" >
-+            <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                {for (var i=0; i<=30; i++)}
-+                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                {/for}
-+                {if ($txpwr == "max")}
+@@ -223,6 +226,11 @@
                  <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                {/if}
-+                {if ($txpwr == "mid")}
                  <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                {/if}
-+                {if ($txpwr == "min")}
                  <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                {/if}
++                {for (var i=0; i<=30; i++)}
++                <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
++                    {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
++                </option>
++                {/for}
+             </select>
+         </span>
+         <em class="t"></em>
+@@ -291,6 +297,11 @@
+                     <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                     <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                     <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                    {for (var i=0; i<=30; i++)}
++                    <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
++                        {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
++                    </option>
++                    {/for}
+                 </select>
+             </span>
+             <em class="t"></em>
+@@ -341,6 +350,11 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
++                    {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
++                </option>
++                {/for}
+             </select>
+         </span>
+         <em class="t"></em>
+--- a/usr/lib/lua/luci/view/web/inc/wifi.html
++++ b/usr/lib/lua/luci/view/web/inc/wifi.html
+@@ -297,6 +297,11 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
++                    {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
++                </option>
++                {/for}
+             </select>
+         </span>
+         <em class="t"></em>
+@@ -421,6 +424,11 @@
+                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
+                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
+                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
++                {for (var i=0; i<=30; i++)}
++                <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
++                    {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
++                </option>
++                {/for}
              </select>
          </span>
          <em class="t"></em>
 --- a/usr/lib/lua/luci/view/web/setting/wifi.htm
 +++ b/usr/lib/lua/luci/view/web/setting/wifi.htm
-@@ -218,10 +218,19 @@
-    <!--  <div class="form-item-select">
-         <label class="k"><%:信号强度%></label>
-         <span class="v">
--            <select name="txpwr" class="beautify txpwr">
-+            <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                {for (var i=0; i<=30; i++)}
-+                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                {/for}
-+                {if ($txpwr == "max")}
+@@ -222,6 +222,11 @@
                  <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                {/if}
-+                {if ($txpwr == "mid")}
                  <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                {/if}
-+                {if ($txpwr == "min")}
                  <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                {/if}
++                {for (var i=0; i<=30; i++)}
++                <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
++                    {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
++                </option>
++                {/for}
              </select>
          </span>
          <em class="t"></em>
-@@ -343,10 +352,19 @@
-     <div class="form-item-select">
-         <label class="k"><%:信号强度%></label>
-         <span class="v">
--            <select name="txpwr" class="beautify txpwr">
-+            <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                {for (var i=0; i<=30; i++)}
-+                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                {/for}
-+                {if ($txpwr == "max")}
+@@ -347,6 +350,11 @@
                  <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                {/if}
-+                {if ($txpwr == "mid")}
                  <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                {/if}
-+                {if ($txpwr == "min")}
                  <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                {/if}
++                {for (var i=0; i<=30; i++)}
++                <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
++                    {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
++                </option>
++                {/for}
              </select>
          </span>
          <em class="t"></em>
-@@ -478,10 +496,19 @@
-     <div class="form-item-select">
-         <label class="k"><%:信号强度%></label>
-         <span class="v">
--            <select name="txpwr" class="beautify txpwr" >
-+            <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                {for (var i=0; i<=30; i++)}
-+                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                {/for}
-+                {if ($txpwr == "max")}
+@@ -482,6 +488,11 @@
                  <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                {/if}
-+                {if ($txpwr == "mid")}
                  <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                {/if}
-+                {if ($txpwr == "min")}
                  <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                {/if}
++                {for (var i=0; i<=30; i++)}
++                <option value="dbm{i}"{if ($txpwr == "dbm"+i)} selected{/if}>
++                    {i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)
++                </option>
++                {/for}
              </select>
          </span>
          <em class="t"></em>
---- a/usr/lib/lua/luci/view/web/apsetting/wifi.htm
-+++ b/usr/lib/lua/luci/view/web/apsetting/wifi.htm
-@@ -170,10 +170,19 @@
-         <div class="form-item-select">
-         <label class="k"><%:信号强度%></label>
-         <span class="v">
--            <select name="txpwr" class="beautify txpwr">
-+            <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                {for (var i=0; i<=30; i++)}
-+                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                {/for}
-+                {if ($txpwr == "max")}
-                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                {/if}
-+                {if ($txpwr == "mid")}
-                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                {/if}
-+                {if ($txpwr == "min")}
-                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                {/if}
-             </select>
-         </span>
-         <em class="t"></em>
-@@ -219,10 +228,19 @@
-     <div class="form-item-select">
-         <label class="k"><%:信号强度%></label>
-         <span class="v">
--            <select name="txpwr" class="beautify txpwr">
-+            <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                {for (var i=0; i<=30; i++)}
-+                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                {/for}
-+                {if ($txpwr == "max")}
-                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                {/if}
-+                {if ($txpwr == "mid")}
-                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                {/if}
-+                {if ($txpwr == "min")}
-                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                {/if}
-             </select>
-         </span>
-         <em class="t"></em>
-@@ -286,11 +304,19 @@
-         <div class="form-item-select">
-             <label class="k"><%:信号强度%></label>
-             <span class="v">
--
--                <select name="txpwr" class="beautify txpwr" >
-+                <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                    {for (var i=0; i<=30; i++)}
-+                    <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                    {/for}
-+                    {if ($txpwr == "max")}
-                     <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                    {/if}
-+                    {if ($txpwr == "mid")}
-                     <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                    {/if}
-+                    {if ($txpwr == "min")}
-                     <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                    {/if}
-                 </select>
-             </span>
-             <em class="t"></em>
-@@ -336,11 +362,19 @@
-     <div class="form-item-select">
-         <label class="k"><%:信号强度%></label>
-         <span class="v">
--
--            <select name="txpwr" class="beautify txpwr" >
-+            <select name="txpwr" class="beautify txpwr"{if ($txpwr == "max" || $txpwr == "mid" || $txpwr == "min")} onchange="this.lastElementChild.remove(); this.onchange=null;"{/if}>
-+                {for (var i=0; i<=30; i++)}
-+                <option value={i}{if ($txpwr == i)} selected{/if}>{i} dBm ({Math.pow(10, i/10).toFixed(Math.max(0, 3-Math.floor(i/10)))} mW)</option>
-+                {/for}
-+                {if ($txpwr == "max")}
-                 <option value="max"{if ($txpwr == "max")} selected{/if}><%:穿墙%></option>
-+                {/if}
-+                {if ($txpwr == "mid")}
-                 <option value="mid"{if ($txpwr == "mid")} selected{/if}><%:标准%></option>
-+                {/if}
-+                {if ($txpwr == "min")}
-                 <option value="min"{if ($txpwr == "min")} selected{/if}><%:节能%></option>
-+                {/if}
-             </select>
-         </span>
-         <em class="t"></em>
---- a/lib/wifi/qcawificfg80211.sh
-+++ b/lib/wifi/qcawificfg80211.sh
-@@ -3014,6 +3014,7 @@
- 			txpower="$max_power"
- 		fi
- 
-+		[ ! -z "${txpwr##*[!0-9]*}" ] && [ "$txpwr" -ge 0 -a "$txpwr" -le 30 ] && txpower="$txpwr"
- 		txpower="${txpower:-$vif_txpower}"
- 		[ -z "$txpower" ] || iwconfig "$ifname" txpower "${txpower%%.*}"
