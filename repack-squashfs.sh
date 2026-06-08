@@ -9,8 +9,6 @@
 set -e
 
 IMG=$1
-ROOTPW="$PASSWORD"  # "password"
-SCRIPT_ROOT_DIR="$PWD"
 
 [ -e "$IMG" ] || { echo "rootfs img not found $IMG"; exit 1; }
 
@@ -31,22 +29,6 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 ###############################################################################
 
 >&2 echo "patching squashfs..."
-
-# modify dropbear init
-sed -i 's/channel=.*/channel="debug"/g' "$FSDIR/etc/init.d/dropbear"
-sed -i 's/flg_ssh=.*/flg_ssh=1/' "$FSDIR/etc/init.d/dropbear"
-
-# stop resetting root password
-sed -i '/set_user(/a return 0' "$FSDIR/etc/init.d/system"
-sed -i 's/flg_init_pwd=.*/flg_init_pwd=0/' "$FSDIR/etc/init.d/boot_check"
-
-# modify root password
-if [ -n "ROOTPW" ]
-then
-	sed -i "s@root:[^:]*@root:${ROOTPW}@" "$FSDIR/etc/shadow"
-else
-	echo -e "\033[0;31mROOT Password hasn't been changed!!!\033[0m\nTo modify this password please define it in ROOTPW env variable"
-fi
 
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
