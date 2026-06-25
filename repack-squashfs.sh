@@ -9,7 +9,6 @@
 set -e
 
 IMG=$1
-ROOTPW='$1$qtLLI4cm$c0v3yxzYPI46s28rbAYG//'  # "password"
 
 [ -e "$IMG" ] || { echo "rootfs img not found $IMG"; exit 1; }
 
@@ -29,13 +28,9 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 >&2 echo "patching squashfs..."
 
-sed -i '/\["FR"\]/s/{ 1, 2 }/{ 1, 1 }/' package/mtk/applications/mtwifi-cfg/files/mtwifi-cfg/mtwifi_defs.lua
+sed -i '/\["FR"\]/s/{ 1, 2 }/{ 1, 1 }/' "$FSDIR/usr/lib/lua/mtwifi_defs.lua"
 
-grep -R '\["FR"\]' package/mtk/applications/mtwifi-cfg/files/mtwifi-cfg/mtwifi_defs.lua
-
-# modify dropbear init
-sed -i 's/channel=.*/channel=release2/' "$FSDIR/etc/init.d/dropbear"
-sed -i 's/flg_ssh=.*/flg_ssh=1/' "$FSDIR/etc/init.d/dropbear"
+grep -R '\["FR"\]' "$FSDIR/usr/lib/lua/mtwifi_defs.lua"
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
