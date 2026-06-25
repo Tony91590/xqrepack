@@ -36,7 +36,7 @@ format=sysupgrade-tar
 EOF
 
 # build tar (IMPORTANT: -H gnu pour compatibilité OpenWrt)
-tar -C "$TMPDIR" -cf "$OUTPUT" --format=gnu sysupgrade
+tar -C "$TMPDIR" -cf "$OUTPUT" --format=gnu sysupgrade-mt7981-clt-r30b1-112M
 
 echo "[*] Done -> $OUTPUT"
 echo "[*] Size: $(stat -c%s "$OUTPUT") bytes"
