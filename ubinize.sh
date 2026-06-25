@@ -10,7 +10,7 @@ KERNEL=$1
 ROOTFS=$2
 BOARD="mt7981-clt-r30b1-112M"
 
-OUT="sysupgrade-${BOARD}.bin"
+OUTPUT=r3600-raw-img.bin
 TMPDIR=$(mktemp -d)
 
 cleanup() {
@@ -40,21 +40,21 @@ cat "$TMPDIR/CONTROL"
 # --- build image ---
 echo "[*] Building sysupgrade image..."
 
-rm -f "$OUT"
+rm -f "$OUTPUT"
 
 # magic header (simple identifier)
-echo "OWRT-SIMPLE-IMG" > "$OUT"
+echo "OWRT-SIMPLE-IMG" > "$OUTPUT"
 
 # CONTROL
-cat "$TMPDIR/CONTROL" >> "$OUT"
-echo -e "\n---" >> "$OUT"
+cat "$TMPDIR/CONTROL" >> "$OUTPUT"
+echo -e "\n---" >> "$OUTPUT"
 
 # kernel
-cat "$KERNEL" >> "$OUT"
-echo -e "\n---" >> "$OUT"
+cat "$KERNEL" >> "$OUTPUT"
+echo -e "\n---" >> "$OUTPUT"
 
 # rootfs
-cat "$ROOTFS" >> "$OUT"
+cat "$ROOTFS" >> "$OUTPUT"
 
-echo "[*] Done -> $OUT"
-echo "[*] Size: $(stat -c%s "$OUT") bytes"
+echo "[*] Done -> $OUTPUT"
+echo "[*] Size: $(stat -c%s "$OUTPUT") bytes"
