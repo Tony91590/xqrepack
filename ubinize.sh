@@ -24,13 +24,13 @@ MAGIC=$(hexdump -n 4 -e '4/1 "%02x"' "$ROOTFS")
 echo "[*] Building sysupgrade tar..."
 
 # structure OpenWrt-like
-mkdir -p "$TMPDIR/sysupgrade"
+mkdir -p "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M"
 
-cp "$KERNEL" "$TMPDIR/sysupgrade/kernel"
-cp "$ROOTFS" "$TMPDIR/sysupgrade/rootfs"
+cp "$KERNEL" "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M/kernel"
+cp "$ROOTFS" "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M/rootfs"
 
 # optional metadata (standard style)
-cat > "$TMPDIR/sysupgrade/CONTROL" <<EOF
+cat > "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M/CONTROL" <<EOF
 board=mt7981-clt-r30b1-112M
 format=sysupgrade-tar
 EOF
