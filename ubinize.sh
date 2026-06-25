@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# sysupgrade MT7981 CLT-R30B1 112M - TAR CLEAN
+# sysupgrade MT7981 CLT-R30B1 112M (TAR format)
 #
 
 set -e
@@ -17,31 +17,26 @@ trap "rm -rf $TMPDIR" EXIT
 [ -f "$KERNEL" ] || { echo "kernel missing"; exit 1; }
 [ -f "$ROOTFS" ] || { echo "rootfs missing"; exit 1; }
 
-# squashfs magic check
+# squashfs check
 MAGIC=$(hexdump -n 4 -e '4/1 "%02x"' "$ROOTFS")
 [ "$MAGIC" = "68737173" ] || { echo "not squashfs rootfs"; exit 1; }
 
-echo "[*] Preparing sysupgrade files..."
+echo "[*] Building sysupgrade tar..."
 
-# IMPORTANT: pas de dossier sysupgrade dans le tar
-mkdir -p "$TMPDIR/root"
+# structure OpenWrt-like
+mkdir -p "$TMPDIR/sysupgrade"
 
-cp "$KERNEL" "$TMPDIR/root/kernel"
-cp "$ROOTFS" "$TMPDIR/root/rootfs"
+cp "$KERNEL" "$TMPDIR/sysupgrade/kernel"
+cp "$ROOTFS" "$TMPDIR/sysupgrade/rootfs"
 
-# CONTROL minimal (optionnel mais utile)
-cat > "$TMPDIR/root/CONTROL" <<EOF
+# optional metadata (standard style)
+cat > "$TMPDIR/sysupgrade/CONTROL" <<EOF
 board=mt7981-clt-r30b1-112M
 format=sysupgrade-tar
 EOF
 
-echo "[*] Building TAR..."
-
-# IMPORTANT FIX:
-# on archive le CONTENU du dossier, pas le dossier lui-même
-tar --format=gnu -cf "$OUTPUT" -C "$TMPDIR/root" .
+# build tar (IMPORTANT: -H gnu pour compatibilité OpenWrt)
+tar -C "$TMPDIR" -cf "$OUTPUT" --format=gnu sysupgrade
 
 echo "[*] Done -> $OUTPUT"
 echo "[*] Size: $(stat -c%s "$OUTPUT") bytes"
-echo "[*] Test archive:"
-tar -tf "$OUTPUT" || echo "WARNING: tar invalid"
