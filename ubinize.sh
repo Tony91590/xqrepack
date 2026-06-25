@@ -27,7 +27,7 @@ echo "[*] Building sysupgrade tar..."
 mkdir -p "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M"
 
 cp "$KERNEL" "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M/kernel"
-cp "$ROOTFS" "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M/rootfs"
+cp "$ROOTFS" "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M/root"
 
 # optional metadata (standard style)
 cat > "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M/CONTROL" <<EOF
