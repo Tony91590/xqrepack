@@ -31,8 +31,7 @@ cp "$ROOTFS" "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M/root"
 
 # optional metadata (standard style)
 cat > "$TMPDIR/sysupgrade-mt7981-clt-r30b1-112M/CONTROL" <<EOF
-board=mt7981-clt-r30b1-112M
-format=sysupgrade-tar
+BOARD=mt7981-clt-r30b1-112M
 EOF
 
 # build tar (IMPORTANT: -H gnu pour compatibilité OpenWrt)
