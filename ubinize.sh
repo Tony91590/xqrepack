@@ -1,62 +1,60 @@
 #!/usr/bin/env bash
 #
-# repacks the kernel & rootfs image into a UBI image
-#
-# 2020.07.20  darell tan
+# Build sysupgrade image (MT7981 CLT-R30B1 112M)
+# no UBI, bootloader simple compatible
 #
 
 set -e
 
 KERNEL=$1
 ROOTFS=$2
-ROOTFS_DATA=$3
-OUTPUT=r3600-raw-img.bin
+BOARD="mt7981-clt-r30b1-112M"
 
-# check for ubinize
-ubinize -V >/dev/null || { echo "need ubinize, from mtd-utils maybe?"; exit 1; }
+OUT="sysupgrade-${BOARD}.bin"
+TMPDIR=$(mktemp -d)
 
-[ -f "$KERNEL" ] || { echo "kernel img doesnt exist."; exit 1; }
-[ -f "$ROOTFS" ] || { echo "rootfs doesnt exist."; exit 1; }
-[ -z "$ROOTFS_DATA" -o "$ROOTFS_DATA" = "--data" ] || { echo "invalid data argument."; exit 1; }
+cleanup() {
+    rm -rf "$TMPDIR"
+}
+trap cleanup EXIT
 
-# verify files
-ROOTFS_SIG=`hexdump -n 4 -e '"%_p"' "$ROOTFS"`
-[ "$ROOTFS_SIG" = "hsqs" ] || { echo "rootfs is not squashfs."; exit 1; }
+# --- checks ---
+[ -f "$KERNEL" ] || { echo "kernel missing"; exit 1; }
+[ -f "$ROOTFS" ] || { echo "rootfs missing"; exit 1; }
 
-KERNEL_SIG=`hexdump -n 4 -e '1/1 "%02x"' "$KERNEL"`
-[ "$KERNEL_SIG" = "d00dfeed" ] || { echo "invalid kernel img"; exit 1; }
+ROOTFS_SIG=$(hexdump -n 4 -e '"%_p"' "$ROOTFS")
+[ "$ROOTFS_SIG" = "hsqs" ] || { echo "not squashfs rootfs"; exit 1; }
 
-UBICFG=`mktemp /tmp/r3600-ubicfg.XXXXX`
-trap "rm -f $UBICFG" EXIT
+echo "[*] Creating CONTROL..."
 
-cat <<CFGEND > $UBICFG
-[kernel]
-mode=ubi
-image=$KERNEL
-vol_id=0
-vol_type=dynamic
-vol_name=kernel
+cat > "$TMPDIR/CONTROL" <<EOF
+board=$BOARD
+kernel_size=$(stat -c%s "$KERNEL")
+rootfs_size=$(stat -c%s "$ROOTFS")
+format=sysupgrade-simple
+EOF
 
-[rootfs]
-mode=ubi
-image=$ROOTFS
-vol_id=1
-vol_type=dynamic
-vol_name=ubi_rootfs
-CFGEND
+echo "[*] CONTROL:"
+cat "$TMPDIR/CONTROL"
 
-# generate an empty rootfs_data volume if requested
-[ -n "$ROOTFS_DATA" ] && cat <<CFGEND2 >> $UBICFG
-[data]
-mode=ubi
-vol_size=1
-vol_id=2
-vol_type=dynamic
-vol_name=rootfs_data
-vol_flags=autoresize
-CFGEND2
+# --- build image ---
+echo "[*] Building sysupgrade image..."
 
-ubinize -m 2048 -p 128KiB -o "$OUTPUT" "$UBICFG"
+rm -f "$OUT"
 
-echo "done."
+# magic header (simple identifier)
+echo "OWRT-SIMPLE-IMG" > "$OUT"
 
+# CONTROL
+cat "$TMPDIR/CONTROL" >> "$OUT"
+echo -e "\n---" >> "$OUT"
+
+# kernel
+cat "$KERNEL" >> "$OUT"
+echo -e "\n---" >> "$OUT"
+
+# rootfs
+cat "$ROOTFS" >> "$OUT"
+
+echo "[*] Done -> $OUT"
+echo "[*] Size: $(stat -c%s "$OUT") bytes"
