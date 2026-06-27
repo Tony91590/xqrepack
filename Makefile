@@ -1,7 +1,7 @@
 KERNEL_URL := https://github.com/Tony91590/openwrt-EDUP-RT2980/raw/refs/heads/main/firmware-backup/software%20mtd/ubi_kernel.bin
 ROOTFS_URL := https://github.com/Tony91590/openwrt-EDUP-RT2980/raw/refs/heads/main/firmware-backup/software%20mtd/ubi_rootfs.bin
 
-TARGET := RT2980_SSH.bin
+TARGET := RT2980_orig_SSH.bin
 
 all: $(TARGET)
 
