@@ -18,7 +18,7 @@ $(TARGET): repack-squashfs.sh ubinize.sh
 		cuong.ga \
 		1234567890
 
-	./ubinize.sh ubi_kernel.bin ubi_rootfs.bin.new
+	./ubinize.sh ubi_kernel.bin ubi_rootfs.bin
 
 	mv r3600-raw-img.bin $@
 
