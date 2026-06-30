@@ -1,0 +1,11 @@
+--- a/sbin/wifi
++++ b/sbin/wifi
+@@ -255,7 +255,7 @@
+     local guest_ifname = "wl14"
+     local miot_ifname = "wl13"
+     local default_bw = "0"
+-    local CountryCode = dosyscmd("bdata get CountryCode","CN")
++    local CountryCode = dosyscmd("nvram get CountryCode","CN")
+     local bh_ap_ifname = dosyscmd("uci -q get misc.backhauls.backhaul_5g_ap_iface","wl5")
+     local bh_sta_ifname = dosyscmd("uci -q get misc.backhauls.backhaul_5g_sta_iface","apclix0")
+     local bh_wps_ifname = dosyscmd("uci -q get misc.wireless.mesh_ifname_5G","wl9")
