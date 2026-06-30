@@ -30,6 +30,7 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 sed 's/BD_CountryCode == "EU" or BD_CountryCode == "UK"/BD_CountryCode == "UK"/g' "$FSDIR/usr/bin/uci2dat"
 
+grep -n 'BD_CountryCode' "$FSDIR/usr/bin/uci2dat"
 
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
