@@ -36,13 +36,15 @@ image=$KERNEL
 vol_id=0
 vol_type=dynamic
 vol_name=kernel
+vol_alignment=1
 
 [rootfs]
 mode=ubi
 image=$ROOTFS
 vol_id=1
 vol_type=dynamic
-vol_name=ubi_rootfs
+vol_name=rootfs
+vol_alignment=1
 CFGEND
 
 # generate an empty rootfs_data volume if requested
