@@ -1,3 +1,5 @@
+--- a/usr/bin/uci2dat
++++ b/usr/bin/uci2dat
 @@ -1112,7 +1112,7 @@
              devscfg.CountryRegionABand = sku_test["aregion"]
              devscfg.SKUenable = sku_test["SKUenable"]
