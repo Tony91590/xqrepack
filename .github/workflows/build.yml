@@ -22,5 +22,5 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        name: miwifi_r3600_all_6510e_3.0.22_INT_SSH.bin
-        path: miwifi_r3600_all_6510e_3.0.22_INT_SSH.bin
+        name: miwifi_rd23_firmware_8d757_1.0.91_INT_SSH.bin
+        path: miwifi_rd23_firmware_8d757_1.0.91_INT_SSH.bin
