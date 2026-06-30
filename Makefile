@@ -1,21 +1,30 @@
-FIRMWARES:=$(shell cd orig-firmwares; ls *.bin | sed 's/\.bin$$//')
+FIRMWARE_URL := https://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/rd23/miwifi_rd23_firmware_8d757_1.0.91_INT.bin
+FIRMWARE := miwifi_rd23_firmware_8d757_1.0.91_INT
 
-TARGETS_SSH:=$(patsubst %,%_SSH.bin,$(FIRMWARES))
-TARGETS:=$(shell echo $(TARGETS_SSH) | sed 's/ /\n/g' | sort)
+TARGET := $(FIRMWARE)_SSH.bin
 
-all: $(TARGETS)
+all: $(TARGET)
 
-%_SSH.bin: orig-firmwares/%.bin repack-squashfs.sh
+orig-firmwares/$(FIRMWARE).bin:
+	mkdir -p orig-firmwares
+	curl -L "$(FIRMWARE_URL)" -o $@
+
+$(FIRMWARE)_SSH.bin: orig-firmwares/$(FIRMWARE).bin repack-squashfs.sh
 	rm -f $@
-	-rm -rf ubifs-root/$*.bin
+	-rm -rf ubifs-root/$(FIRMWARE).bin
 
 	# UBI INFO (AVANT extraction)
-	ubireader_display_info orig-firmwares/$*.bin
+	ubireader_display_info $<
 
-	ubireader_extract_images -w orig-firmwares/$*.bin
+	ubireader_extract_images -w $<
 
-	fakeroot -- ./repack-squashfs.sh ubifs-root/$*.bin/img-*_vol-ubi_rootfs.ubifs cuong.ga 1234567890
+	fakeroot -- ./repack-squashfs.sh \
+		ubifs-root/$(FIRMWARE).bin/img-*_vol-ubi_rootfs.ubifs \
+		cuong.ga \
+		1234567890
 
-	./ubinize.sh ubifs-root/$*.bin/img-*_vol-kernel.ubifs ubifs-root/$*.bin/img-*_vol-ubi_rootfs.ubifs.new
+	./ubinize.sh \
+		ubifs-root/$(FIRMWARE).bin/img-*_vol-kernel.ubifs \
+		ubifs-root/$(FIRMWARE).bin/img-*_vol-ubi_rootfs.ubifs.new
 
 	mv r3600-raw-img.bin $@
