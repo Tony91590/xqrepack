@@ -28,7 +28,7 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 >&2 echo "patching squashfs..."
 
-sed 's/BD_CountryCode == "EU" or BD_CountryCode == "UK"/BD_CountryCode == "UK"/g'
+sed 's/BD_CountryCode == "EU" or BD_CountryCode == "UK"/BD_CountryCode == "UK"/g' "$FSDIR/usr/bin/uci2dat"
 
 
 # apply patch from xqrepack repository
