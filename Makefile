@@ -19,12 +19,12 @@ $(FIRMWARE)_SSH.bin: orig-firmwares/$(FIRMWARE).bin repack-squashfs.sh
 	ubireader_extract_images -w $<
 
 	fakeroot -- ./repack-squashfs.sh \
-		ubifs-root/$(FIRMWARE).bin/img-*_vol-ubi_rootfs.ubifs \
+		ubifs-root/$(FIRMWARE).bin/img-*_vol-rootfs.ubifs \
 		cuong.ga \
 		1234567890
 
 	./ubinize.sh \
 		ubifs-root/$(FIRMWARE).bin/img-*_vol-kernel.ubifs \
-		ubifs-root/$(FIRMWARE).bin/img-*_vol-ubi_rootfs.ubifs.new
+		ubifs-root/$(FIRMWARE).bin/img-*_vol-rootfs.ubifs.new
 
 	mv r3600-raw-img.bin $@
