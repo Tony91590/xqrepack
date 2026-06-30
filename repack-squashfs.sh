@@ -36,6 +36,8 @@ grep -n 'BD_CountryCode' "$FSDIR/usr/bin/uci2dat"
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
+rm -f $FSDIR/etc/init.d/dropbear.orig
+
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
 mksquashfs "$FSDIR" "$IMG.new" -comp xz -b 256K -no-xattrs
