@@ -28,46 +28,6 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 >&2 echo "patching squashfs..."
 
-cat > "$FSDIR/etc/hotplug.d/iface/99-country-sync" <<'EOF'
-#!/bin/sh
-
-[ -z "$ACTION" ] && ACTION="manual"
-
-case "$ACTION" in
-    ifup|ifdown|reload|start|stop|manual) ;;
-    *) exit 0 ;;
-esac
-
-ccode="$(nvram get CountryCode 2>/dev/null)"
-[ -z "$ccode" ] && exit 0
-
-logger -t country-sync "apply country=$ccode event=$ACTION"
-
-WIRELESS="/etc/config/wireless"
-[ -f "$WIRELESS" ] || exit 0
-
-current="$(grep -m1 "option country" "$WIRELESS" 2>/dev/null | awk -F"'" '{print $2}')"
-[ "$current" = "$ccode" ] && exit 0
-
-sed -i "s/^[[:space:]]*option country .*/\toption country '$ccode'/" "$WIRELESS"
-
-/tmp lock anti-loop
-LOCK="/tmp/country-sync.lock"
-[ -f "$LOCK" ] && exit 0
-
-touch "$LOCK"
-sleep 2
-
-/sbin/wifi reload
-
-sleep 3
-rm -f "$LOCK"
-
-exit 0
-EOF
-
-chmod +x "$FSDIR/etc/hotplug.d/iface/99-country-sync"
-
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
@@ -75,6 +35,7 @@ find patches -type f -name \*.orig -delete
 rm -f $FSDIR/etc/init.d/dropbear.orig
 rm -f $FSDIR/usr/bin/uci2dat.orig
 rm -f $FSDIR/sbin/wifi.orig
+rm -f $FSDIR/lib/preinit/31_restore_nvram.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
