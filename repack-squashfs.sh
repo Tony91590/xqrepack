@@ -33,8 +33,6 @@ find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
 
 rm -f $FSDIR/etc/init.d/dropbear.orig
-rm -f $FSDIR/usr/bin/uci2dat.orig
-rm -f $FSDIR/sbin/wifi.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
