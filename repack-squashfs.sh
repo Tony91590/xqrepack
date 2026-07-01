@@ -28,7 +28,55 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 >&2 echo "patching squashfs..."
 
-cat "$FSDIR/usr/bin/uci2dat"
+cat > "$FSDIR/etc/hotplug.d/iface/99-country-sync" <<'EOF'
+#!/bin/sh
+
+[ -z "$ACTION" ] && ACTION="manual"
+
+case "$ACTION" in
+    ifup|ifdown|reload|start|stop|manual) ;;
+    *) exit 0 ;;
+esac
+
+ccode="$(nvram get CountryCode 2>/dev/null)"
+[ -z "$ccode" ] && exit 0
+
+logger -t country-sync "apply country=$ccode event=$ACTION"
+
+WIRELESS="/etc/config/wireless"
+
+# Vérifie si le fichier existe
+[ -f "$WIRELESS" ] || exit 0
+
+# Vérifie si changement réel nécessaire (évite rewrite inutile)
+current="$(grep -m1 "option country" "$WIRELESS" 2>/dev/null | awk -F"'" '{print $2}')"
+
+[ "$current" = "$ccode" ] && exit 0
+
+# Applique le changement
+sed -i "s/^[[:space:]]*option country .*/\toption country '$ccode'/" "$WIRELESS"
+
+# Anti-loop simple : évite reload si déjà en cours
+LOCK="/tmp/country-sync.lock"
+
+if [ -f "$LOCK" ]; then
+    exit 0
+fi
+
+touch "$LOCK"
+
+# petit délai pour éviter cascades hotplug
+sleep 2
+
+/sbin/wifi reload
+
+sleep 3
+rm -f "$LOCK"
+
+exit 0
+EOF
+
+chmod +x "$FSDIR/etc/hotplug.d/iface/99-country-sync"
 
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
