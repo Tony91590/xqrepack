@@ -1,0 +1,8 @@
+@@ -149,7 +149,7 @@
+
+ 	local countrycode=`nvram get CountryCode`
+ 	[ "$countrycode" = "EU" ] && {
+-		nvram set CountryCode=DE
++		nvram set CountryCode=FR
+ 		need_commit=1
+ 	}
