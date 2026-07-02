@@ -6,7 +6,8 @@
  		elif [ "$txpwr" == "mid" ]; then
 -			iwpriv $ifname set TxPower=75
 -		else
- 			iwpriv $ifname set TxPower=50
+-			iwpriv $ifname set TxPower=50
++			iwpriv $ifname set TxPower=50
 +		else
 +			iwpriv $ifname set TxPower=25
  		fi
