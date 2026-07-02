@@ -4,8 +4,7 @@
              devscfg.CountryRegionABand = sku_test["aregion"]
              devscfg.SKUenable = sku_test["SKUenable"]
 
--            if BD_CountryCode == "EU" then
-+            if BD_CountryCode == "EU" then
+             if BD_CountryCode == "EU" then
 -                devscfg.SkuTableIdx = 1
 +                devscfg.SkuTableIdx = 0
              elseif BD_CountryCode == "US" then
