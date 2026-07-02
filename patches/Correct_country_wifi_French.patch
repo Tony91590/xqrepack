@@ -9,3 +9,12 @@
      local bh_ap_ifname = dosyscmd("uci -q get misc.backhauls.backhaul_5g_ap_iface","wl5")
      local bh_sta_ifname = dosyscmd("uci -q get misc.backhauls.backhaul_5g_sta_iface","apclix0")
      local bh_wps_ifname = dosyscmd("uci -q get misc.wireless.mesh_ifname_5G","wl9")
+@@ -277,7 +277,7 @@
+ 	-- default AutoChannelSkipList for 5G
+ 	-- no DFS channel to avoid CCA
+ 	-- no CH165 because it has only 20M bandwidth
+-	local AutoChannelSkipList_5G = "52;56;60;64;100;104;108;112;116;120;124;128;132;136;140;165"
++	local AutoChannelSkipList_5G = "132;136;140;165"
+
+ 	-- do CountryCode specific configuration
+ 	if CountryCode == "KR" then
