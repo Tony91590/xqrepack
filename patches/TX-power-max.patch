@@ -6,6 +6,7 @@
 
 -            if BD_CountryCode == "EU" then
 +            if BD_CountryCode == "UK" then
-                 devscfg.SkuTableIdx = 1
+-                devscfg.SkuTableIdx = 1
++                devscfg.SkuTableIdx = 1
              elseif BD_CountryCode == "US" then
                  devscfg.SkuTableIdx = 2
