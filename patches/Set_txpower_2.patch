@@ -1,1 +1,12 @@
-
+@@ -49,9 +49,9 @@
+ 		if [ "$txpwr" == "max" ]; then
+ 			iwpriv $ifname set TxPower=100
+ 		elif [ "$txpwr" == "mid" ]; then
+-			iwpriv $ifname set TxPower=75
+-		else
+ 			iwpriv $ifname set TxPower=50
++		else
++			iwpriv $ifname set TxPower=25
+ 		fi
+ 		need_downup=1
+ 		update_log "__update_phy_cfg TxPower = $txpwr"
