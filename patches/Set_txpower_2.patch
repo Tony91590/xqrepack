@@ -1,3 +1,5 @@
+--- a/usr/sbin/wifi_update
++++ b/usr/sbin/wifi_update
 @@ -49,9 +49,9 @@
  		if [ "$txpwr" == "max" ]; then
  			iwpriv $ifname set TxPower=100
