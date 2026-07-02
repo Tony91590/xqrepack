@@ -6,7 +6,8 @@
                  elseif v == "mid" then
 -                    devscfg.TxPower = 75
 -                elseif v == "min" then
-                     devscfg.TxPower = 50
+-                    devscfg.TxPower = 50
++                    devscfg.TxPower = 50
 +                elseif v == "min" then
 +                    devscfg.TxPower = 25
                  end
