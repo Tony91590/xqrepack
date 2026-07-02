@@ -1,7 +1,7 @@
-xqrepack
+xqrepack Xiaomi AX3000T
 =========
 
-These scripts allow you to modify the *Xiaomi R3600* firmware image to make sure SSH and UART access is always enabled.
+These scripts allow you to modify the *Xiaomi AX3000T* firmware image to make sure SSH and UART access is always enabled.
 
 The default root password is `password`. Please remember to login to the router and change that after the upgrade. Your router settings like IP address and SSIDs are stored in the nvram and should stay the same.
 
@@ -50,7 +50,9 @@ Manual Flashing
 
 The R3600 firmware uses an A/B partition system, called `rootfs` and `rootfs_1`. This corresponds to `mtd12` and `mtd13`. Find the partition that is not the one in use and use `ubiformat` to write the raw image onto the partition:
 
-    ubiformat /dev/mtd12 -f /tmp/r3600-raw-img.bin -s 2048 -O 2048
+    ubiformat /dev/mtd9 -f /tmp/r3600-raw-img.bin -s 2048 -O 2048
+    or
+    ubiformat /dev/mtd8 -f /tmp/r3600-raw-img.bin -s 2048 -O 2048
 
 Set the nvram variable to re-initialize `/etc` (and I think to switch partitions also):
 
