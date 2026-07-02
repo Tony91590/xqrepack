@@ -18,3 +18,30 @@
 
  	-- do CountryCode specific configuration
  	if CountryCode == "KR" then
+@@ -370,7 +370,7 @@
+     option network miot
+     option mode ap
+     option ssid 25c829b1922d3123_miwifi
+-    option disabled 0
++    option disabled 1
+     option encryption none
+     option wmm 1
+     option hidden 1
+@@ -411,7 +411,7 @@
+     option txbf 3
+     option disabled 0
+     option WscModelName RD23
+-    option DfsEnable ]]..dfs.."\n"..[[
++    option DfsEnable 0
+     option AutoChannelSkipList ']]..AutoChannelSkipList_5G.."'\n")
+
+     -- 5G wifi-iface cfg
+@@ -440,7 +440,7 @@
+     option ifname ]]..bh_ap_ifname.."\n"..[[
+     option network lan
+     option mode ap
+-    option disabled 0
++    option disabled 1
+     option encryption psk2
+     option key ]]..bh_key.."\n"..[[
+     option wmm 1
