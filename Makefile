@@ -1,5 +1,5 @@
-FIRMWARE_URL := https://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/rd23/miwifi_rd23_all_0904d_1.0.104_INT.bin
-FIRMWARE := miwifi_rd23_all_0904d_1.0.104_INT
+FIRMWARE_URL := https://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/rd03/miwifi_rd03_firmware_ae34e_1.0.106.bin
+FIRMWARE := miwifi_rd03_firmware_ae34e_1.0.106
 
 TARGET := $(FIRMWARE)_SSH.bin
 
