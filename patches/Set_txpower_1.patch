@@ -1,12 +1,14 @@
 --- a/usr/bin/uci2dat
 +++ b/usr/bin/uci2dat
-@@ -1112,7 +1112,7 @@
-             devscfg.CountryRegionABand = sku_test["aregion"]
-             devscfg.SKUenable = sku_test["SKUenable"]
-
--            if BD_CountryCode == "EU" then
-+            if BD_CountryCode == "EU" then
--                devscfg.SkuTableIdx = 1
-+                devscfg.SkuTableIdx = 0
-             elseif BD_CountryCode == "US" then
-                 devscfg.SkuTableIdx = 2
+@@ -967,9 +967,9 @@
+                 if v == "max" then
+                     devscfg.TxPower = 100
+                 elseif v == "mid" then
+-                    devscfg.TxPower = 75
+-                elseif v == "min" then
+                     devscfg.TxPower = 50
++                elseif v == "min" then
++                    devscfg.TxPower = 25
+                 end
+             elseif k == "ax" then   -- OFDMA, TWT, BSS color
+                 local uci = require("luci.model.uci").cursor()
