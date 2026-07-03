@@ -1,2 +1,3 @@
+nanddump
 mtd erase ubi
 mtd erase ubi1
