@@ -37,8 +37,6 @@ uci commit nginx
 /etc/init.d/nginx reload
 EOF
 
-cat $FSDIR/etc/uci-defaults/enable_force_https.sh
-
 # apply patch from xqrepack repository
 find patches -type f -exec bash -c "(cd "$FSDIR" && patch -p1) < {}" \;
 find patches -type f -name \*.orig -delete
