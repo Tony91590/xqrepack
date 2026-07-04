@@ -32,7 +32,7 @@ cat > $FSDIR/etc/uci-defaults/enable_force_https.sh << EOF
 #!/bin/sh
 # for BSI certification, force https for all web access by default in EU region
 CountryCode=EU
-if [ "$CountryCode" = "UK" ]; then
+if [ "$CountryCode" = "EU" ]; then
 	uci set nginx.main.force_https=1
 	uci commit nginx
 fi
