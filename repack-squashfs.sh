@@ -28,6 +28,17 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 
 >&2 echo "patching squashfs..."
 
+cat > $FSDIR/etc/uci-defaults/enable_force_https.sh << EOF
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ %D %V, %C
+ -----------------------------------------------------
+EOF
+
 cat $FSDIR/etc/uci-defaults/enable_force_https.sh
 
 # apply patch from xqrepack repository
@@ -39,7 +50,6 @@ rm -f $FSDIR/usr/bin/uci2dat.orig
 rm -f $FSDIR/sbin/wifi.orig
 rm -f $FSDIR/lib/preinit/31_restore_nvram.orig
 rm -f $FSDIR/usr/sbin/wifi_update.orig
-rm -f $FSDIR/etc/uci-defaults/enable_force_https.sh.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
