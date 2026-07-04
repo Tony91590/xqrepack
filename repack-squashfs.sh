@@ -29,14 +29,12 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 >&2 echo "patching squashfs..."
 
 cat > $FSDIR/etc/uci-defaults/enable_force_https.sh << EOF
-  _______                     ________        __
- |       |.-----.-----.-----.|  |  |  |.----.|  |_
- |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
- |_______||   __|_____|__|__||________||__|  |____|
-          |__| W I R E L E S S   F R E E D O M
- -----------------------------------------------------
- %D %V, %C
- -----------------------------------------------------
+#!/bin/sh
+# for BSI certification, force https for all web access by default in UK region
+if [ "$(bdata get CountryCode)" = "UK" ]; then
+	uci set nginx.main.force_https=1
+	uci commit nginx
+fi
 EOF
 
 cat $FSDIR/etc/uci-defaults/enable_force_https.sh
