@@ -1,10 +1,11 @@
---- a/etc/uci-defaults/enable_force_https
-+++ b/etc/uci-defaults/enable_force_https
-@@ -149,7 +149,7 @@
-
- 	local countrycode=`nvram get CountryCode`
- 	[ "$countrycode" = "EU" ] && {
--		nvram set CountryCode=DE
-+		nvram set CountryCode=FR
- 		need_commit=1
- 	}
+--- a/etc/uci-defaults/enable_force_https.sh
++++ b/etc/uci-defaults/enable_force_https.sh
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+-# for BSI certification, force https for all web access by default in UK region
+-if [ "$(bdata get CountryCode)" = "UK" ]; then
++# for BSI certification, force https for all web access by default in EU region
++if [ "$(bdata get CountryCode)" = "EU" ]; then
+ 	uci set nginx.main.force_https=1
+ 	uci commit nginx
+ fi
