@@ -31,7 +31,7 @@ unsquashfs -f -d "$FSDIR" "$IMG"
 cat > $FSDIR/etc/uci-defaults/enable_force_https.sh << EOF
 #!/bin/sh
 
-uci set nginx.main.force_https=1
+uci set nginx.main.force_https=0
 uci commit nginx
 
 /etc/init.d/nginx reload
