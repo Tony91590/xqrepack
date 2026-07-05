@@ -33,8 +33,6 @@ cat > $FSDIR/etc/uci-defaults/enable_force_https.sh << EOF
 
 uci set nginx.main.force_https=0
 uci commit nginx
-
-/etc/init.d/nginx reload
 EOF
 
 # apply patch from xqrepack repository
