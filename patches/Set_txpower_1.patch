@@ -1,6 +1,6 @@
 --- a/usr/bin/uci2dat
 +++ b/usr/bin/uci2dat
-@@ -967,9 +967,9 @@
+@@ -972,9 +972,9 @@
                  if v == "max" then
                      devscfg.TxPower = 100
                  elseif v == "mid" then
