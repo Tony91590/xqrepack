@@ -1,2 +1,10 @@
 --- a/lib/preinit/00_preinit.conf
 +++ b/lib/preinit/00_preinit.conf
+@@ -12,6 +12,6 @@
+ pi_preinit_no_failsafe_netmsg=""
+ pi_preinit_no_failsafe=""
+ pi_preinit_mount_files="xqDb passwd shadow custom_hosts"
+-pi_preinit_mount_dir="config datacenterconfig smartcontroller parentalctl smartvpn ppp crontabs mipctl"
++pi_preinit_mount_dir="config datacenterconfig smartcontroller parentalctl smartvpn ppp crontabs mipctl dropbear"
+ pi_preinit_ramfs_dir="/etc /lib/wifi /lib/firmware"
+ pi_overlay_partitions="cfg:/data:"
