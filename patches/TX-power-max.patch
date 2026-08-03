@@ -9,7 +9,7 @@
      },
      ["UK"] = {
          ["region"]      = "1",
-@@ -1115,7 +1115,7 @@
+@@ -1118,7 +1118,7 @@
              devscfg.CountryRegionABand = sku_test["aregion"]
              devscfg.SKUenable = sku_test["SKUenable"]
 
