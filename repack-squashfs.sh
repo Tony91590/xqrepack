@@ -44,6 +44,7 @@ rm -f $FSDIR/usr/bin/uci2dat.orig
 rm -f $FSDIR/sbin/wifi.orig
 rm -f $FSDIR/lib/preinit/31_restore_nvram.orig
 rm -f $FSDIR/usr/sbin/wifi_update.orig
+rm -f $FSDIR/lib/preinit/00_preinit.conf.orig
 
 >&2 echo "repacking squashfs..."
 rm -f "$IMG.new"
