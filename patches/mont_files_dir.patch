@@ -1,2 +1,2 @@
-/lib/preinit/00_preinit.conf
-lib/preinit/00_preinit.conf
+--- a/lib/preinit/00_preinit.conf
++++ b/lib/preinit/00_preinit.conf
