@@ -1,5 +1,5 @@
 FIRMWARE_URL := https://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/rd23/miwifi_rd23_all_71a2a_1.0.103_INT.bin
-FIRMWARE := miwifi_rd23_all_71a2a_1.0.103_INT.bin
+FIRMWARE := miwifi_rd23_all_71a2a_1.0.103_INT
 
 TARGET := $(FIRMWARE)_SSH.bin
 
