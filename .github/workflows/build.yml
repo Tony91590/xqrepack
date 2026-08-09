@@ -22,5 +22,5 @@ jobs:
 
     - uses: actions/upload-artifact@main
       with:
-        name: miwifi_rd23_all_0904d_1.0.104_INT_SSH.bin
-        path: miwifi_rd23_all_0904d_1.0.104_INT_SSH.bin
+        name: miwifi_rd23_all_71a2a_1.0.103_INT_SSH.bin
+        path: miwifi_rd23_all_71a2a_1.0.103_INT_SSH.bin
